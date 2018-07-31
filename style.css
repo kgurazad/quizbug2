@@ -18,7 +18,7 @@ html,body {
     height: 100%;
     float: left;
 }
-.jumbotron {
+.jumbotron,#answer {
     padding: 1rem;
     width: auto;
 }
