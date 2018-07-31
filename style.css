@@ -1,22 +1,22 @@
 html,body {
     font-size: 13px;
     height: 100%;
+    margin: 1%;
 }
 #right {
-    width: 25%;
+    width: 24%;
     height: 100%;
     float: right;
 }
 #top {
     width: 100%;
     height: 60px;
-    float: left;
+    float: top;
 }
 #main {
-    margin: 0px;
-    width: 75%;
+    width: 74%;
     height: 100%;
-    float: top;
+    float: left;
 }
 .jumbotron {
     padding: 1rem;
