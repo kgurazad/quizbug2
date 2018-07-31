@@ -6,12 +6,11 @@ html,body {
     width: 25%;
     height: 100%;
     float: right;
-    float: top;
 }
 #top {
     width: 100%;
     height: 60px;
-    float: top;
+    float: left;
 }
 #main {
     margin: 0px;
