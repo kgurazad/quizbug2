@@ -1,0 +1,23 @@
+{
+  "name": "quizbug2",
+  "version": "1.0.0",
+  "description": "quizbug for quizdb",
+  "main": "index.js",
+  "scripts": {
+    "start": "coffee --compile *.coffee; node server.js",
+    "test": "coffee --compile *.coffee; node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kgurazada/quizbug2.git"
+  },
+  "keywords": [
+    "quizbowl"
+  ],
+  "author": "kgurazada",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kgurazada/quizbug2/issues"
+  },
+  "homepage": "https://github.com/kgurazada/quizbug2#readme"
+}
