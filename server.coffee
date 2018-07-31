@@ -8,11 +8,11 @@ app.get '/', (req, res) ->
     return
     
 app.get '/client.js', (req, res) ->
-    res.sendFile __dirname+'client.js'
+    res.sendFile __dirname+'/client.js'
     return
     
 app.get '/style.css', (req, res) ->
-    res.sendFile __dirname+'style.css'
+    res.sendFile __dirname+'/style.css'
     return
     
 app.listen port, () ->
