@@ -1,21 +1,6 @@
 console.log 'up!'
 
-getJSON = (url) ->
-  return new Promise (resolve, reject) ->
-    xhr = new XMLHttpRequest
-    xhr.open 'get', url, true
-    xhr.responseType = 'json'
-
-    xhr.onload = () ->
-      status = xhr.status
-      if status == 200
-        resolve xhr.response
-      else
-        reject status
-      return
-
-    xhr.send()
-    return
+# this is the stuff you	may want to configure!
 
 searchParameters = {
   query: '', # the string of your query
@@ -25,7 +10,10 @@ searchParameters = {
   difficulties: [], # middle_school, easy_high_school, etc
   tournaments: [] # use quizdb ids - good luck with finding them
 }
-readSpeed = 2000 # number of milliseconds between words
+readSpeed = 120 # number of milliseconds between words
+
+# end configurable stuff
+
 currentlyIsBuzzing = false
 questionFinished = false
 questionAnswered = false
@@ -35,10 +23,27 @@ questionText = null
 readInterval = null
 word = 0
 
+getJSON = (url) ->
+  promise = new Promise (resolve, reject) ->
+    xhr = new XMLHttpRequest
+    xhr.open 'get', url, true
+    xhr.responseType = 'json'
+    xhr.onload = () ->
+      status = xhr.status
+      if status == 200
+        resolve xhr.response
+      else
+        reject status
+      return
+    xhr.send()
+    return
+  return promise
+
 next = () ->
   question = questions[(questions.indexOf(question) + 1) % questions.length]
   questionText = question.text.split(' ')
   $('#question').text('');
+  $('#answer').text('');
   readInterval = setInterval () ->
     if currentlyIsBuzzing
       return
