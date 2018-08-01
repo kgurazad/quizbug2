@@ -67,7 +67,8 @@ finish = () ->
       $('#question').append(questionText[word] + ' ')
       word++
   word = 0
-  $('#answer').text(question.answer)
+  $('#answer').text(question.answer) if question?
+  return
 
 search = () ->
   url = ''
