@@ -80,8 +80,8 @@ search = () ->
   getJSON('search/'+url).then (res) ->
     questions = res.data.tossups
     question = null
+    next()
     return
-  next()
   return
 
 $(document).ready () ->
