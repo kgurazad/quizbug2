@@ -6,7 +6,7 @@ getJSON = (url) ->
     xhr.open 'get', url, true
     xhr.responseType = 'json'
 
-    xhr.onload = ->
+    xhr.onload = () ->
       status = xhr.status
       if status == 200
         resolve xhr.response
@@ -16,6 +16,7 @@ getJSON = (url) ->
 
     xhr.send()
     return
+
 
 currentlyIsBuzzing = false
 questionFinished = false
