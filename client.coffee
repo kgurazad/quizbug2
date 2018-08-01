@@ -82,9 +82,9 @@ $(document).ready () ->
         currentlyIsBuzzing = false
       else
         currentlyIsBuzzing = true
-    else if event.which == 78
+    else if event.which == 110
       next()
-    else if event.which == 83
+    else if event.which == 115
       search()
     return
   return
