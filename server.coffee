@@ -1,8 +1,6 @@
 express = require 'express'
-timeout = require 'connect-timeout'
 request = require 'request'
 app = express()
-app.use timeout 300000
 
 port = process.env.PORT || 2020
 
@@ -26,7 +24,7 @@ app.get '/search/:search', (req, res) ->
   search = req.params.search
   search = search.replace(/!/g, '&')
   search = '?' + search
-  search = search + '&search[limit]=false'
+  # search = search + '&search[limit]=false'
   search = encodeURI search
   request({url:'https://www.quizdb.org/api/search'+search, json:true}, (err, res2, body) ->
     res.send body if !err and res2.statusCode == 200
