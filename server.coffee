@@ -25,6 +25,7 @@ app.get '/search/:search', (req, res) ->
     request({url:'https://www.quizdb.org/api/search'+search, json:true}, (err, res2, body) ->
         res.send body if !err and res2.statusCode == 200
         return
+    )
     return
 
 app.listen port, () ->
