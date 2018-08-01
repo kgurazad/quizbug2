@@ -118,9 +118,9 @@ $(document).ready () ->
       else if not questionFinished
         $('#question').append('(#) ')
         currentlyIsBuzzing = true
-    else if event.which == 110
+    else if event.which == 78
       next()
-    else if event.which == 115
+    else if event.which == 83
       search()
     setTimeout () ->
       window.scrollTo 0, 0
