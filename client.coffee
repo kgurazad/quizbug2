@@ -1,19 +1,16 @@
 console.log 'up!'
 
-# this is the stuff you	may want to configure!
+# this is the not stuff you want to configure! configurables are at the bottom.
 
 searchParameters = {
-  query: '', # the string of your query
-  categories: [], # quizdb ids
-  subcategories: [], # ^
-  search_types: [], # none, Question, Answer, or both
-  difficulties: [], # middle_school, easy_high_school, etc
-  tournaments: [] # use quizdb ids - good luck with finding them
+  query: '',
+  categories: [],
+  subcategories: [],
+  search_types: [],
+  difficulties: [],
+  tournaments: []
 }
-readSpeed = 120 # number of milliseconds between words
-
-# end configurable stuff
-
+readSpeed = 120
 currentlyIsBuzzing = false
 questionFinished = false
 questionAnswered = false
@@ -103,6 +100,17 @@ search = () ->
 
 $(document).ready () ->
   $(document).keypress () ->
+    # these are the configurables!
+    searchParameters = {
+      query: '', # the string of your query
+      categories: [], # quizdb ids
+      subcategories: [], # ^
+      search_types: [], # none, Question, Answer, or both
+      difficulties: [], # middle_school, easy_high_school, etc
+      tournaments: [] # use quizdb ids - good luck with finding them
+    }
+    readSpeed = 120 # number of milliseconds between words
+    # end configurables
     if event.which == 32
       if currentlyIsBuzzing
         finish()
