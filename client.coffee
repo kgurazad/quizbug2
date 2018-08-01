@@ -15,7 +15,6 @@ readSpeed = 120 # number of milliseconds between words
 # end configurable stuff
 
 currentlyIsBuzzing = false
-currentlyIsReading = false
 questionFinished = false
 questionAnswered = false
 questions = null
@@ -41,7 +40,7 @@ getJSON = (url) ->
   return promise
 
 next = () ->
-  currentlyIsReading = true
+  questionFinished = false
   word = 0
   question = questions[(questions.indexOf(question) + 1) % questions.length]
   console.log question
@@ -54,11 +53,12 @@ next = () ->
   $('#question').text('');
   $('#answer').text('');
   readInterval = window.setInterval () ->
-    if currentlyIsBuzzing
+    if currentlyIsBuzzing or questionFinished
       return
     $('#question').append(questionText[word] + ' ')
     word++
     if word == questionText.length
+      questionFinished = true
     return
   , readSpeed
   console.log readInterval
@@ -66,7 +66,6 @@ next = () ->
 
 finish = () ->
   window.clearInterval(readInterval)
-  currentlyIsReading = false
   $('#question').text(question.text)
   $('#answer').text(question.answer)
 
@@ -103,7 +102,7 @@ $(document).ready () ->
       else
         $('#question').append('(#)')
         currentlyIsBuzzing = true
-    else if event.which == 110 and not currentlyIsReading
+    else if event.which == 110
       next()
     else if event.which == 115
       search()
