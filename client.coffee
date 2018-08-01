@@ -44,14 +44,14 @@ next = () ->
   questionText = question.text.split(' ')
   $('#question').text('');
   $('#answer').text('');
-  clearInterval(readInterval)
-  readInterval = setInterval () ->
+  window.clearInterval(readInterval)
+  readInterval = window.setInterval () ->
     if currentlyIsBuzzing
       return
     $('#question').append(questionText[word] + ' ')
     word++
     if word == questionText.length
-      clearInterval(readInterval)
+      window.clearInterval(readInterval)
       finish()
     return
   , readSpeed
@@ -59,7 +59,7 @@ next = () ->
   return
 
 finish = () ->
-  clearInterval(readInterval)
+  window.clearInterval(readInterval)
   $('#question').text(question.text)
   $('#answer').text(question.answer)
 
