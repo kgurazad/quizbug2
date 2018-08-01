@@ -47,7 +47,7 @@ finish = () ->
   $('#answer').text(question.answer)
 
 search = () ->
-  url = 'https://www.quizdb.org/api/search'
+  url = ''
   url += '?search[query]='+searchParameters.query
   for category in searchParameters.categories
     url += '&search[filters][category]='+category
@@ -61,8 +61,9 @@ search = () ->
   for tournament in searchParameters.tournaments
     url	+= '&search[filters][tournament][]='+tournament
   url += '&crossDomain=true'
-  getJSON(url).then (data) ->
-    questions = JSON.parse data.tossups
+  getJSON('https://quizbug2.herokuapp.com/search/'+url).then (data) ->
+    res = JSON.parse data
+    questions = res.data.tossups
     return
   return
 
