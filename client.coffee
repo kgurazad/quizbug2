@@ -44,21 +44,19 @@ next = () ->
   currentlyIsReading = true
   question = questions[(questions.indexOf(question) + 1) % questions.length]
   $('#metadata').empty()
-  $('#metadata').append('<li class="breadcrumb-item">'+question.tournament.name+'</li>')
-  $('#metadata').append('<li class="breadcrumb-item">'+question.difficulty+'</li>')
+  $('#metadata').append('<li class="breadcrumb-item">'+question.["tournament"].name+'</li>')
+  $('#metadata').append('<li class="breadcrumb-item">'+question.["tournament"].difficulty+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">'+question.category.name+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">'+question.subcategory.name+'</li>')
   questionText = question.text.split(' ')
   $('#question').text('');
   $('#answer').text('');
-  window.clearInterval(readInterval)
   readInterval = window.setInterval () ->
     if currentlyIsBuzzing
       return
     $('#question').append(questionText[word] + ' ')
     word++
     if word == questionText.length
-      window.clearInterval(readInterval)
       finish()
     return
   , readSpeed
