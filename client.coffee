@@ -56,9 +56,8 @@ next = () ->
   return
 
 finish = () ->
-  alert 'finishing!'
   clearInterval readInterval
-  $('#question').text(question.formatted_text)
+  $('#question').text(question.text)
   $('#answer').text(question.answer)
 
 search = () ->
@@ -86,6 +85,7 @@ search = () ->
 
 $(document).ready () ->
   $(document).keypress () ->
+    window.scrollTo 0, 0
     if event.which == 32
       if currentlyIsBuzzing
         finish()
