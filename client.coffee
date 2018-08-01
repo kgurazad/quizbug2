@@ -43,6 +43,7 @@ getJSON = (url) ->
 next = () ->
   currentlyIsReading = true
   question = questions[(questions.indexOf(question) + 1) % questions.length]
+  console.log question
   $('#metadata').empty()
   $('#metadata').append('<li class="breadcrumb-item">'+question["tournament"].name+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">'+question["tournament"].difficulty+'</li>')
@@ -101,14 +102,14 @@ $(document).ready () ->
         currentlyIsBuzzing = false
       else
         currentlyIsBuzzing = true
-    else if event.which == 110
+    else if event.which == 110 and not currentlyIsReading
       next()
     else if event.which == 115
       search()
     setTimeout () ->
       window.scrollTo 0, 0
       return
-    , 25
+    , 30
     return
   return
 
