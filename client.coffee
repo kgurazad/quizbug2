@@ -81,6 +81,7 @@ search = () ->
     questions = res.data.tossups
     cnsl.log questions
     return
+  next()
   return
 
 $(document).ready () ->
