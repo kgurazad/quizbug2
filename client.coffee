@@ -44,7 +44,6 @@ next = () ->
   
   questionFinished = false
   question = questions[(questions.indexOf(question) + 1) % questions.length]
-  console.log question
   $('#metadata').empty()
   $('#metadata').append('<li class="breadcrumb-item">'+question["tournament"].name+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">'+question["tournament"].difficulty+'</li>')
@@ -62,7 +61,6 @@ next = () ->
       questionFinished = true
     return
   , readSpeed
-  console.log readInterval
   return
 
 finish = () ->
@@ -89,8 +87,9 @@ search = () ->
   for tournament in searchParameters.tournaments
     url	+= '!search[filters][tournament][]='+tournament
   url += '!crossDomain=true'
-  console.log url
+  finish()
   $('#question').text('this takes a while...')
+  $('#answer').text('if it does not load within 30 seconds, the request timed out. make your parameters more specific and try again.')
   getJSON('search/'+url).then (res) ->
     questions = res.data.tossups
     question = null
