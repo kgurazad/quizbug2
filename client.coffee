@@ -48,17 +48,17 @@ finish = () ->
 
 search = () ->
   url = 'https://www.quizdb.org/api/search'
-  url += '?search[query]='+query
-  for category in categories
+  url += '?search[query]='+searchParameters.query
+  for category in searchParameters.categories
     url += '&search[filters][category]='+category
-  for search_type in search_types
+  for search_type in searchParameters.search_types
     url += '&search[filters][search_type][]='+search_type
-  for difficulty in difficulties
+  for difficulty in searchParameters.difficulties
     url += '&search[filters][difficulty][]='+difficulty
-  for subcategory in subcategories
+  for subcategory in searchParameters.subcategories
     url	+= '&search[filters][subcategories][]='+subcategory
   url += '&search[filters][question_type][]=Tossup'
-  for tournament in tournaments
+  for tournament in searchParameters.tournaments
     url	+= '&search[filters][tournament][]='+tournament
   getJSON(url).then (data) ->
     questions = JSON.parse data.tossups
