@@ -39,7 +39,7 @@ getJSON = (url) ->
     return
   return promise
 
-next = () ->
+next = () -> 
   question = questions[(questions.indexOf(question) + 1) % questions.length]
   questionText = question.text.split(' ')
   $('#question').text('');
@@ -79,14 +79,13 @@ search = () ->
   cnsl = console
   getJSON('search/'+url).then (res) ->
     questions = res.data.tossups
-    cnsl.log questions
+    question = null
     return
   next()
   return
 
 $(document).ready () ->
   $(document).keypress () ->
-    window.scrollTo 0, 0
     if event.which == 32
       if currentlyIsBuzzing
         finish()
@@ -97,6 +96,10 @@ $(document).ready () ->
       next()
     else if event.which == 115
       search()
+    setTimeout () ->
+      window.scrollTo 0, 0
+      return
+    , 32
     return
   return
 
