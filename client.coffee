@@ -53,10 +53,11 @@ next = () ->
       finish()
     return
   , readSpeed
+  console.log readInterval
   return
 
 finish = () ->
-  clearInterval readInterval
+  clearInterval(readInterval)
   $('#question').text(question.text)
   $('#answer').text(question.answer)
 
