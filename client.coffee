@@ -37,11 +37,7 @@ getJSON = (url) ->
   return promise
 
 next = () ->
-  try
-    finish()
-  catch e
-    # eh
-  
+  finish()
   questionFinished = false
   question = questions[(questions.indexOf(question) + 1) % questions.length]
   $('#metadata').empty()
@@ -66,9 +62,10 @@ next = () ->
 finish = () ->
   questionFinished = true
   window.clearInterval(readInterval)
-  while word < questionText.length
-    $('#question').append(questionText[word] + ' ')
-    word++
+  if questionText?
+    while word < questionText.length
+      $('#question').append(questionText[word] + ' ')
+      word++
   word = 0
   $('#answer').text(question.answer)
 
