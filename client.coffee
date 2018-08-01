@@ -40,8 +40,8 @@ getJSON = (url) ->
   return promise
 
 next = () ->
+  finish()
   questionFinished = false
-  word = 0
   question = questions[(questions.indexOf(question) + 1) % questions.length]
   console.log question
   $('#metadata').empty()
@@ -65,8 +65,11 @@ next = () ->
   return
 
 finish = () ->
+  questionFinished = true
   window.clearInterval(readInterval)
-  $('#question').text(question.text)
+  while word < questionText.length
+    $('#question').append(questionText[word] + ' ')
+    word++
   $('#answer').text(question.answer)
 
 search = () ->
