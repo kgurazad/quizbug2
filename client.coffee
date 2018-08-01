@@ -43,17 +43,22 @@ getJSON = (url) ->
 next = () ->
   currentlyIsReading = true
   question = questions[(questions.indexOf(question) + 1) % questions.length]
+  $('#metadata').empty()
+  $('#metadata').append('<li>'+question.tournament.name+'</li>')
+  $('#metadata').append('<li>'+question.difficulty+'</li>')
+  $('#metadata').append('<li>'+question.category.name+'</li>')
+  $('#metadata').append('<li>'+question.subcategory.name+'</li>')
   questionText = question.text.split(' ')
   $('#question').text('');
   $('#answer').text('');
-  @clearInterval(readInterval)
-  readInterval = @setInterval () ->
+  window.clearInterval(readInterval)
+  readInterval = window.etInterval () ->
     if currentlyIsBuzzing
       return
     $('#question').append(questionText[word] + ' ')
     word++
     if word == questionText.length
-      @clearInterval(readInterval)
+      window.clearInterval(readInterval)
       finish()
     return
   , readSpeed
@@ -61,7 +66,7 @@ next = () ->
   return
 
 finish = () ->
-  @clearInterval(readInterval)
+  window.clearInterval(readInterval)
   currentlyIsReading = false
   $('#question').text(question.text)
   $('#answer').text(question.answer)
