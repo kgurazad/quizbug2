@@ -40,7 +40,11 @@ getJSON = (url) ->
   return promise
 
 next = () ->
-  finish()
+  try
+    finish()
+  catch e
+    # eh
+  
   questionFinished = false
   question = questions[(questions.indexOf(question) + 1) % questions.length]
   console.log question
@@ -70,6 +74,7 @@ finish = () ->
   while word < questionText.length
     $('#question').append(questionText[word] + ' ')
     word++
+  word = 0
   $('#answer').text(question.answer)
 
 search = () ->
