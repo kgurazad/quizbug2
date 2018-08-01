@@ -15,6 +15,7 @@ readSpeed = 120 # number of milliseconds between words
 # end configurable stuff
 
 currentlyIsBuzzing = false
+currentlyIsReading = false
 questionFinished = false
 questionAnswered = false
 questions = null
@@ -39,7 +40,8 @@ getJSON = (url) ->
     return
   return promise
 
-next = () -> 
+next = () ->
+  currentlyIsReading = true
   question = questions[(questions.indexOf(question) + 1) % questions.length]
   questionText = question.text.split(' ')
   $('#question').text('');
@@ -60,6 +62,7 @@ next = () ->
 
 finish = () ->
   @clearInterval(readInterval)
+  currentlyIsReading = false
   $('#question').text(question.text)
   $('#answer').text(question.answer)
 
