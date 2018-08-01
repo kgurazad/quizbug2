@@ -21,7 +21,7 @@ searchParameters = {
   query: '', # the string of your query
   categories: [], # quizdb ids
   subcategories: [], # ^
-  search_type: [], # none, Question, Answer, or both
+  search_types: [], # none, Question, Answer, or both
   difficulties: [], # middle_school, easy_high_school, etc
   tournaments: [] # use quizdb ids - good luck with finding them
 }
