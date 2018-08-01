@@ -61,7 +61,7 @@ search = () ->
   for tournament in searchParameters.tournaments
     url	+= '&search[filters][tournament][]='+tournament
   url += '&crossDomain=true'
-  getJSON('https://quizbug2.herokuapp.com/search/'+url).then (data) ->
+  getJSON('search/'+url).then (data) ->
     res = JSON.parse data
     questions = res.data.tossups
     return
