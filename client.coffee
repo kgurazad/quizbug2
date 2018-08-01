@@ -60,6 +60,7 @@ search = () ->
   url += '&search[filters][question_type][]=Tossup'
   for tournament in searchParameters.tournaments
     url	+= '&search[filters][tournament][]='+tournament
+  url += '&crossDomain=true'
   getJSON(url).then (data) ->
     questions = JSON.parse data.tossups
     return
