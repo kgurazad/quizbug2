@@ -12,6 +12,7 @@ searchParameters = {
 }
 readSpeed = 120
 currentlyIsBuzzing = false
+questionEnded = false
 questionFinished = false
 questionAnswered = false
 questions = null
@@ -38,6 +39,7 @@ getJSON = (url) ->
 
 next = () ->
   finish()
+  questionEnded = false
   questionFinished = false
   question = questions[(questions.indexOf(question) + 1) % questions.length]
   $('#metadata').empty()
@@ -49,17 +51,18 @@ next = () ->
   $('#question').text('');
   $('#answer').text('');
   readInterval = window.setInterval () ->
-    if currentlyIsBuzzing or questionFinished
+    if currentlyIsBuzzing or questionFinished or questionEnded
       return
     $('#question').append(questionText[word] + ' ')
     word++
     if word == questionText.length
-      questionFinished = true
+      questionEnded = true
     return
   , readSpeed
   return
 
 finish = () ->
+  questionEnded = true
   questionFinished = true
   window.clearInterval(readInterval)
   if questionText?
@@ -109,7 +112,7 @@ $(document).ready () ->
     readSpeed = 120 # number of milliseconds between words
     # end configurables
     if event.which == 32
-      if currentlyIsBuzzing
+      if currentlyIsBuzzing and not questionFinished
         finish()
         currentlyIsBuzzing = false
       else
