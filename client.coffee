@@ -62,8 +62,7 @@ search = () ->
     url	+= '!search[filters][tournament][]='+tournament
   url += '!crossDomain=true'
   console.log url
-  getJSON('search/'+url).then (data) ->
-    res = JSON.parse data
+  getJSON('search/'+url).then (res) ->
     questions = res.data.tossups
     return
   return
