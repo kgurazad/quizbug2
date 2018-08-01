@@ -99,7 +99,7 @@ search = () ->
   return
 
 $(document).ready () ->
-  $(document).keypress () ->
+  $(document).keyup () ->
     # these are the configurables!
     searchParameters = {
       query: '', # the string of your query
