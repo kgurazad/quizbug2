@@ -28,7 +28,7 @@ readInterval = null
 word = 0
 
 next = () ->
-  question = questions[(questions.indexOf(question) + 1) % currentQuestions.length]
+  question = questions[(questions.indexOf(question) + 1) % questions.length]
   questionText = question.formatted_text.split(' ')
   readInterval = setInterval () ->
     if currentlyIsBuzzing
@@ -62,8 +62,10 @@ search = () ->
     url	+= '!search[filters][tournament][]='+tournament
   url += '!crossDomain=true'
   console.log url
+  cnsl = console
   getJSON('search/'+url).then (res) ->
     questions = res.data.tossups
+    cnsl questions
     return
   return
 
