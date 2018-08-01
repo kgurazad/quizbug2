@@ -25,7 +25,7 @@ searchParameters = {
   difficulties: [], # middle_school, easy_high_school, etc
   tournaments: [] # use quizdb ids - good luck with finding them
 }
-readSpeed = 120 # number of milliseconds between words
+readSpeed = 2000 # number of milliseconds between words
 currentlyIsBuzzing = false
 questionFinished = false
 questionAnswered = false
@@ -39,6 +39,7 @@ next = () ->
   question = questions[(questions.indexOf(question) + 1) % questions.length]
   questionText = question.formatted_text.split(' ')
   readInterval = setInterval () ->
+    alert 'interval!'
     if currentlyIsBuzzing
       return
     $('#question').append(questionText[word])
@@ -50,6 +51,7 @@ next = () ->
   return
 
 finish = () ->
+  alert 'finishing!'
   clearInterval readInterval
   $('#question').text(question.formatted_text)
   $('#answer').text(question.answer)
