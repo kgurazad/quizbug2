@@ -1,26 +1,8 @@
 express = require 'express'
+request = require 'request'
 app = express()
 
 port = process.env.PORT || 2020
-
-getJSON = (url) ->
-  promise = new Promise (resolve, reject) ->
-    xhr = new XMLHttpRequest()
-    xhr.open 'get', url, true
-    xhr.responseType = 'json'
-
-    xhr.onload = () ->
-      status = xhr.status
-      if status == 200
-        resolve xhr.response
-      else
-        reject status
-      return
-
-    xhr.send()
-    return
-  return promise
-
 
 app.get '/', (req, res) ->
     res.sendFile __dirname+'/index.html'
@@ -38,9 +20,10 @@ app.get '/search/:search', (req, res) ->
     search = req.params.search
     search = search.replace(/!/g, '&')
     search = '?' + search
+    console.log search
     search = encodeURI search
-    getJSON('https://www.quizdb.org/api/search'+search).then (data) ->
-        res.send data
+    request({url:'https://www.quizdb.org/api/search'+search, json:true}, (err, res2, body) ->
+        res.send body if !err and res2.statusCode == 200
         return
     return
 
