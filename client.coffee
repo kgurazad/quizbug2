@@ -44,7 +44,7 @@ next = () ->
       return
     $('#question').append(questionText[word])
     word++
-    if word = questionText.length
+    if word == questionText.length
       finish()
     return
   , readSpeed
