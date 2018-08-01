@@ -44,8 +44,8 @@ next = () ->
   currentlyIsReading = true
   question = questions[(questions.indexOf(question) + 1) % questions.length]
   $('#metadata').empty()
-  $('#metadata').append('<li class="breadcrumb-item">'+question.["tournament"].name+'</li>')
-  $('#metadata').append('<li class="breadcrumb-item">'+question.["tournament"].difficulty+'</li>')
+  $('#metadata').append('<li class="breadcrumb-item">'+question["tournament"].name+'</li>')
+  $('#metadata').append('<li class="breadcrumb-item">'+question["tournament"].difficulty+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">'+question.category.name+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">'+question.subcategory.name+'</li>')
   questionText = question.text.split(' ')
