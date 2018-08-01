@@ -4,8 +4,8 @@ app = express()
 port = process.env.PORT || 2020
 
 getJSON = (url) ->
-  return new Promise (resolve, reject) ->
-    xhr = new XMLHttpRequest
+  promise = new Promise (resolve, reject) ->
+    xhr = new XMLHttpRequest()
     xhr.open 'get', url, true
     xhr.responseType = 'json'
 
@@ -19,6 +19,7 @@ getJSON = (url) ->
 
     xhr.send()
     return
+  return promise
 
 
 app.get '/', (req, res) ->
