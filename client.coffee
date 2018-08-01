@@ -79,9 +79,9 @@ $(document).ready () ->
     if event.which == 32
       if currentlyIsBuzzing
         finish()
-	currentlyIsBuzzing = false
+        currentlyIsBuzzing = false
       else
-	currentlyIsBuzzing = true
+        currentlyIsBuzzing = true
     else if event.which == 78
       next()
     else if event.which == 83
