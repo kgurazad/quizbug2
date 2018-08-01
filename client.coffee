@@ -17,7 +17,15 @@ getJSON = (url) ->
     xhr.send()
     return
 
-
+searchParameters = {
+  query: '', # the string of your query
+  categories: [], # quizdb ids
+  subcategories: [], # ^
+  search_type: [], # none, Question, Answer, or both
+  difficulties: [], # middle_school, easy_high_school, etc
+  tournaments: [] # use quizdb ids - good luck with finding them
+}
+readSpeed = 120 # number of milliseconds between words
 currentlyIsBuzzing = false
 questionFinished = false
 questionAnswered = false
@@ -65,19 +73,10 @@ search = () ->
   cnsl = console
   getJSON('search/'+url).then (res) ->
     questions = res.data.tossups
-    cnsl questions
+    cnsl.log questions
     return
   return
 
-searchParameters = {
-  query: '', # text of your query
-  categories: [], # categories in an array: use quizdb ids
-  search_types: [], # none, Question, Answer, or both
-  difficulties: [], # middle_school, easy_high_school, regular_high_school, etc
-  subcategories: [], # subcategories in	an array: use quizdb ids
-  tournaments: [] # use the quizdb ids
-}
-  
 $(document).ready () ->
   $(document).keypress () ->
     if event.which == 32
