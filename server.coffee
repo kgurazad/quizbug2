@@ -1,6 +1,8 @@
 express = require 'express'
+timeout = require 'connect-timeout'
 request = require 'request'
 app = express()
+app.use timeout 300000
 
 port = process.env.PORT || 2020
 

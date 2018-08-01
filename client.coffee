@@ -42,6 +42,7 @@ getJSON = (url) ->
 
 next = () ->
   currentlyIsReading = true
+  word = 0
   question = questions[(questions.indexOf(question) + 1) % questions.length]
   console.log question
   $('#metadata').empty()
@@ -86,7 +87,7 @@ search = () ->
     url	+= '!search[filters][tournament][]='+tournament
   url += '!crossDomain=true'
   console.log url
-  cnsl = console
+  $('#question').text('this takes a while...')
   getJSON('search/'+url).then (res) ->
     questions = res.data.tossups
     question = null
