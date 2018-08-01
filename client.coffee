@@ -115,7 +115,7 @@ $(document).ready () ->
       if currentlyIsBuzzing and not questionFinished
         finish()
         currentlyIsBuzzing = false
-      else
+      else if not questionFinished
         $('#question').append('(#) ')
         currentlyIsBuzzing = true
     else if event.which == 110
