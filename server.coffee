@@ -35,7 +35,7 @@ app.get '/style.css', (req, res) ->
 
 app.get '/search/:search', (req, res) ->
     search = req.params.search
-    search.replace /\%/g, '&'
+    search = search.replace /\%/g, '&'
     search = '?' + search
     search = encodeURI search
     getJSON('https://www.quizdb.org/api/search'+search).then (data) ->
