@@ -108,7 +108,7 @@ $(document).ready () ->
         finish()
         currentlyIsBuzzing = false
       else
-        $('#question').append('(#)')
+        $('#question').append('(#) ')
         currentlyIsBuzzing = true
     else if event.which == 110
       next()
