@@ -59,7 +59,6 @@ next = () ->
     $('#question').append(questionText[word] + ' ')
     word++
     if word == questionText.length
-      finish()
     return
   , readSpeed
   console.log readInterval
@@ -102,6 +101,7 @@ $(document).ready () ->
         finish()
         currentlyIsBuzzing = false
       else
+        $('#question').append('(#)')
         currentlyIsBuzzing = true
     else if event.which == 110 and not currentlyIsReading
       next()
