@@ -61,6 +61,7 @@ search = () ->
   for tournament in searchParameters.tournaments
     url	+= '!search[filters][tournament][]='+tournament
   url += '!crossDomain=true'
+  console.log url
   getJSON('search/'+url).then (data) ->
     res = JSON.parse data
     questions = res.data.tossups
