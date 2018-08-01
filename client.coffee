@@ -50,17 +50,17 @@ search = () ->
   url = ''
   url += 'search[query]='+searchParameters.query
   for category in searchParameters.categories
-    url += '%search[filters][category]='+category
+    url += '!search[filters][category]='+category
   for search_type in searchParameters.search_types
-    url += '%search[filters][search_type][]='+search_type
+    url += '!search[filters][search_type][]='+search_type
   for difficulty in searchParameters.difficulties
-    url += '%search[filters][difficulty][]='+difficulty
+    url += '!search[filters][difficulty][]='+difficulty
   for subcategory in searchParameters.subcategories
-    url	+= '%search[filters][subcategories][]='+subcategory
-  url += '&search[filters][question_type][]=Tossup'
+    url	+= '!search[filters][subcategories][]='+subcategory
+  url += '!search[filters][question_type][]=Tossup'
   for tournament in searchParameters.tournaments
-    url	+= '%search[filters][tournament][]='+tournament
-  url += '%crossDomain=true'
+    url	+= '!search[filters][tournament][]='+tournament
+  url += '!crossDomain=true'
   getJSON('search/'+url).then (data) ->
     res = JSON.parse data
     questions = res.data.tossups
