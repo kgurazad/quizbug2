@@ -37,12 +37,12 @@ word = 0
 
 next = () ->
   question = questions[(questions.indexOf(question) + 1) % questions.length]
-  questionText = question.formatted_text.split(' ')
+  questionText = question.text.split(' ')
+  $('#question').text('');
   readInterval = setInterval () ->
-    alert 'interval!'
     if currentlyIsBuzzing
       return
-    $('#question').append(questionText[word])
+    $('#question').append(questionText[word] + ' ')
     word++
     if word == questionText.length
       finish()
