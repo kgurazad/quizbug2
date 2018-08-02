@@ -64,9 +64,9 @@ app.get '/search/:search', (req, res) ->
       try
         year = Number tSplit[0]
         if tSplit.length == 1
-	  tournament.$or.push {'tournament.year': year, 'tournament.name': {$exists: true} }
-	else
-	  tournament.$or.push {'tournament.year': year, 'tournament.name': mergeSpaces tSplit.slice 1 }
+          tournament.$or.push {'tournament.year': year, 'tournament.name': {$exists: true} }
+        else
+          tournament.$or.push {'tournament.year': year, 'tournament.name': mergeSpaces tSplit.slice 1 }
       catch e
         tournament.$or.push {'tournament.year': {$exists: true}, 'tournament.name': mergeSpaces tSplit.slice 1 }
 
