@@ -49,20 +49,27 @@ app.get '/style.css', (req, res) ->
 app.get '/search/:search', (req, res) ->
   try
     search = req.params.search.split('!')
+    console.log search
     queryString = escapeRegExp search[0]
+    console.log queryString
     query = {}
     categories = split(search[1], ',')
+    console.log cateogries
     subcategories = split(search[2], ',')
+    console.log subcategories
     difficulties = split(search[3], ',')
+    console.log difficulties
     tournamentsRaw = split(search[4], ',')
-    console.log 'raw ' + tournamentsRaw
+    console.log tournamentsRaw
     tournaments = {$or: []} # as it is in the mongodb
     searchType = search[5]
+    console.log searchType
 
     searchParams = {$and: []}
 
     for k,v of difficulties
       difficulties[k] = Number v
+    console.log difficulties
 
     if tournamentsRaw.length == 0
       tournaments = {'tournament': {$exists: true}}
@@ -79,6 +86,7 @@ app.get '/search/:search', (req, res) ->
 
     if tournamentsRaw.length == 1
       tournaments = tournaments.$or
+    console.log tournaments
 
     if searchType == 'qa'
       query.$or = []
@@ -91,6 +99,7 @@ app.get '/search/:search', (req, res) ->
 
     if queryString == ''
       query = {'text': {$exists: true}}
+    console.log query
 
     searchParams.$and.push query
     searchParams.$and.push tournaments
@@ -98,9 +107,15 @@ app.get '/search/:search', (req, res) ->
     searchParams['category'] = {$in: categories}
     searchParams['subcategory'] = {$in: subcategories}
 
-    searchParams['difficulty'] = {$exists: true}; console.log 'nodif' if difficulties == []
-    searchParams['category'] = {$exists: true}; console.log 'nocat' if categories == []
-    searchParams['subcategory'] = {$exists: true}; console.log 'nosub' if subcategories == []
+    if difficulties == []
+      searchParams['difficulty'] = {$exists: true}
+      console.log 'nodif'
+    if categories == []
+      searchParams['category'] = {$exists: true}
+      console.log 'nocat'
+    if subcategories == []
+      searchParams['subcategory'] = {$exists: true}
+      console.log 'nosub'
 
     console.log JSON.stringify searchParams
 
