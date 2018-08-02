@@ -72,12 +72,12 @@ app.get '/search/:search', (req, res) ->
 
     if searchType == 'qa'
       query.$or = []
-      query.$or.push {'text.question', {$regex: new RegExp queryString, 'i' } }
-      query.$or.push {'text.answer', {$regex: new RegExp queryString, 'i' } }
+      query.$or.push {'text.question': {$regex: new RegExp(queryString, 'i')}}
+      query.$or.push {'text.answer': {$regex: new RegExp(queryString, 'i')}}
     else if searchType == 'q'
-      query = {'text.question', {$regex: new RegExp queryString, 'i' } }
+      query = {'text.question': {$regex: new RegExp(queryString, 'i')}}
     else
-      query = {'text.answer', {$regex: new RegExp queryString, 'i' } }
+      query = {'text.answer': {$regex: new RegExp(queryString, 'i')}}
 
     searchParams.$and.push query
     searchParams.$and.push tournaments
