@@ -85,7 +85,7 @@ app.get '/search/:search', (req, res) ->
     searchParams['category'] = {$in: categories}
     searchParams['subcategory'] = {$in: subcategories}
 
-    console.log searchParams
+    console.log JSON.stringify searchParams
 
     model.find(searchParams).limit(1331).find (err, data) ->
       throw err if err?

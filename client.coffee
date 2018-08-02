@@ -73,7 +73,8 @@ search = () ->
   $('#answer').text('')
   console.log url
   $.getJSON 'search/'+url, (res) ->
-    questions = res.data.tossups
+    questions = res
+    console.log questions
     question = null
     next()
     return
