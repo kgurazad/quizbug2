@@ -58,7 +58,10 @@ app.get '/search/:search', (req, res) ->
 
     for k,v of difficulties
       difficulties[k] = Number v
-      
+
+
+    if tournamentsRaw.length == 0
+      tournaments = {'tournament': {$exists: true}}
     for tournament in tournamentsRaw
       tSplit = tournament.split ' '
       try
@@ -69,6 +72,9 @@ app.get '/search/:search', (req, res) ->
           tournaments.$or.push {'tournament.year': year, 'tournament.name': mergeSpaces tSplit.slice 1 }
       catch e
         tournaments.$or.push {'tournament.year': {$exists: true}, 'tournament.name': mergeSpaces tSplit.slice 1 }
+
+    if tournamentsRaw.length == 1
+      tournaments = tournaments.$or
 
     if searchType == 'qa'
       query.$or = []
