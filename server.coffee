@@ -107,6 +107,10 @@ app.get '/search/:search', (req, res) ->
     searchParams['category'] = {$in: categories}
     searchParams['subcategory'] = {$in: subcategories}
 
+    console.log difficulties
+    console.log categories
+    console.log subcategories
+
     if difficulties == []
       searchParams['difficulty'] = {$exists: true}
       console.log 'nodif'
