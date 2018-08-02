@@ -85,12 +85,15 @@ app.get '/search/:search', (req, res) ->
     searchParams['category'] = {$in: categories}
     searchParams['subcategory'] = {$in: subcategories}
 
+    console.log searchParams
+
     model.find(searchParams).limit(1331).find (err, data) ->
       throw err if err?
       res.send data
       return
 
   catch e
+    console.log e.stack
     res.sendStatus 400
     
   return
