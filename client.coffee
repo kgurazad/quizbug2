@@ -62,12 +62,14 @@ finish = () ->
   return
 
 search = () ->
-  url = '!'
+  url = ''
   url += searchParameters.query
   url += '!'
   url += searchParameters.categories
   url += '!'
   url += searchParameters.subcategories
+  url += '!'
+  url += searchParameters.difficulties
   url += '!'
   url += searchParameters.tournaments
   url += '!'
@@ -89,6 +91,8 @@ search = () ->
 
 $(document).ready () ->
   $(document).keyup () ->
+    if document.activeElement.tagName != 'BODY'
+      return
     searchParameters = {
       query: $('#query').val(),
       categories: $('#categories').val(),
