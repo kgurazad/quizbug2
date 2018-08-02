@@ -54,7 +54,7 @@ app.get '/search/:search', (req, res) ->
     console.log queryString
     query = {}
     categories = split(search[1], ',')
-    console.log cateogries
+    console.log categories
     subcategories = split(search[2], ',')
     console.log subcategories
     difficulties = split(search[3], ',')
