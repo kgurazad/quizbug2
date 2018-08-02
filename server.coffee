@@ -111,15 +111,15 @@ app.get '/search/:search', (req, res) ->
     console.log categories
     console.log subcategories
 
-    if difficulties == []
+    if difficulties.length == 0
       searchParams['difficulty'] = {$exists: true}
       console.log 'nodif'
       
-    if categories == []
+    if categories.length == 0
       searchParams['category'] = {$exists: true}
       console.log 'nocat'
       
-    if subcategories == []
+    if subcategories.length == 0
       searchParams['subcategory'] = {$exists: true}
       console.log 'nosub'
 
