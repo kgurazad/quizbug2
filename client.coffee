@@ -21,33 +21,17 @@ questionText = null
 readInterval = null
 word = 0
 
-getJSON = (url) ->
-  promise = new Promise (resolve, reject) ->
-    xhr = new XMLHttpRequest
-    xhr.open 'get', url, true
-    xhr.responseType = 'json'
-    xhr.onload = () ->
-      status = xhr.status
-      if status == 200
-        resolve xhr.response
-      else
-        reject status
-      return
-    xhr.send()
-    return
-  return promise
-
 next = () ->
   finish()
   questionEnded = false
   questionFinished = false
   question = questions[(questions.indexOf(question) + 1) % questions.length]
   $('#metadata').empty()
-  $('#metadata').append('<li class="breadcrumb-item">'+question["tournament"].name+'</li>')
-  $('#metadata').append('<li class="breadcrumb-item">'+question["tournament"].difficulty+'</li>')
-  $('#metadata').append('<li class="breadcrumb-item">'+question.category.name+'</li>')
-  $('#metadata').append('<li class="breadcrumb-item">'+question.subcategory.name+'</li>')
-  questionText = question.text.split(' ')
+  $('#metadata').append('<li class="breadcrumb-item">'+question.year+' '+question.tournament'</li>')
+  $('#metadata').append('<li class="breadcrumb-item">'+question.difficulty+'</li>')
+  $('#metadata').append('<li class="breadcrumb-item">'+question.category+'</li>')
+  $('#metadata').append('<li class="breadcrumb-item">'+question.subcategory+'</li>')
+  questionText = question.text.question.split(' ')
   $('#question').text('');
   $('#answer').text('');
   readInterval = window.setInterval () ->
@@ -70,28 +54,25 @@ finish = () ->
       $('#question').append(questionText[word] + ' ')
       word++
   word = 0
-  $('#answer').text(question.answer) if question?
+  $('#answer').text(question.text.answer) if question?
   return
 
 search = () ->
   url = ''
-  url += 'search[query]='+searchParameters.query
-  for category in searchParameters.categories
-    url += '!search[filters][category]='+category
-  for search_type in searchParameters.search_types
-    url += '!search[filters][search_type][]='+search_type
-  for difficulty in searchParameters.difficulties
-    url += '!search[filters][difficulty][]='+difficulty
-  for subcategory in searchParameters.subcategories
-    url	+= '!search[filters][subcategories][]='+subcategory
-  url += '!search[filters][question_type][]=Tossup'
-  for tournament in searchParameters.tournaments
-    url	+= '!search[filters][tournament][]='+tournament
-  url += '!crossDomain=true'
+  url += searchParameters.query
+  url += '!'
+  url += searchParameters.categories
+  url += '!'
+  url += searchParameters.subcategories
+  url += '!'
+  url += searchParameters.tournaments
+  url += '!'
+  url += searchParameters.searchType
   finish()
-  $('#question').text('this takes a while...')
-  $('#answer').text('if it does not load within 30 seconds, the request timed out. make your parameters more specific and try again.')
-  getJSON('search/'+url).then (res) ->
+  $('#question').text('this may take a while...')
+  $('#answer').text('')
+  console.log url
+  $.getJSON 'search/'+url, (res) ->
     questions = res.data.tossups
     question = null
     next()
@@ -102,12 +83,12 @@ $(document).ready () ->
   $(document).keyup () ->
     # these are the configurables!
     searchParameters = {
-      query: '', # the string of your query
-      categories: [], # quizdb ids
-      subcategories: [], # ^
-      search_types: [], # none, Question, Answer, or both
-      difficulties: [], # middle_school, easy_high_school, etc
-      tournaments: [] # use quizdb ids - good luck with finding them
+      query: $('#query').val(),
+      categories: $('#categories').val(),
+      subcategories: $('#subcategories').val(),
+      difficulties: $('#difficulties').val(),
+      tournaments: $('#tournaments').val(),
+      searchType: $('#searchType').find(':selected').val()
     }
     readSpeed = 120 # number of milliseconds between words
     # end configurables
