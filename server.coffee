@@ -98,9 +98,9 @@ app.get '/search/:search', (req, res) ->
     searchParams['category'] = {$in: categories}
     searchParams['subcategory'] = {$in: subcategories}
 
-    searchParams['difficulty'] = null if difficulties == []
-    searchParams['category'] = null if categories == []
-    searchParams['subcategory'] = null if subcategories == []
+    searchParams['difficulty'] = {$exists: true}; console.log 'nodif' if difficulties == []
+    searchParams['category'] = {$exists: true}; console.log 'nocat' if categories == []
+    searchParams['subcategory'] = {$exists: true}; console.log 'nosub' if subcategories == []
 
     console.log JSON.stringify searchParams
 
