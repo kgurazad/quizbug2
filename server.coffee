@@ -34,6 +34,10 @@ app.get '/', (req, res) ->
   res.sendFile __dirname+'/index.html'
   return
 
+app.get '/info', (req, res) ->
+  res.sendFile __dirname+'/info.html'
+  return
+
 app.get '/favicon.ico', (req, res) ->
   res.sendFile __dirname+'/favicon.ico'
   return
