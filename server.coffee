@@ -15,6 +15,10 @@ schema = mongoose.Schema({
 })
 model = mongoose.model('qs',schema,'raw-quizdb-clean')
 
+split = (str, separator) ->  
+  if str.length == 0
+    return []
+  str.split separator
 
 mergeSpaces = (arr) ->
   res = ''
@@ -47,10 +51,10 @@ app.get '/search/:search', (req, res) ->
     search = req.params.search.split('!')
     queryString = escapeRegExp search[0]
     query = {}
-    categories = search[1].split(',')
-    subcategories = search[2].split(',')
-    difficulties = search[3].split(',')
-    tournamentsRaw = search[4].split(',')
+    categories = split(search[1], ',')
+    subcategories = split(search[2], ',')
+    difficulties = split(search[3], ',')
+    tournamentsRaw = split(search[4], ',')
     tournaments = {$or: []} # as it is in the mongodb
     searchType = search[5]
 
@@ -93,8 +97,11 @@ app.get '/search/:search', (req, res) ->
 
     console.log JSON.stringify searchParams
 
-    model.find(searchParams).limit(1331).find (err, data) ->
-      throw err if err?
+    model.find(searchParams).limit(1331).find (e, data) ->
+      if e?
+        console.log e.stack
+	res.sendStatus 503
+	return
       res.send data
       return
 
