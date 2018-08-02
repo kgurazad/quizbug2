@@ -98,9 +98,9 @@ app.get '/search/:search', (req, res) ->
     searchParams['category'] = {$in: categories}
     searchParams['subcategory'] = {$in: subcategories}
 
-    delete searchParams['difficulty'] if difficulties == []
-    delete searchParams['category'] if categories == []
-    delete searchParams['subcategory'] if subcategories == []
+    searchParams['difficulty'] = null if difficulties == []
+    searchParams['category'] = null if categories == []
+    searchParams['subcategory'] = null if subcategories == []
 
     console.log JSON.stringify searchParams
 
