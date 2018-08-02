@@ -1,6 +1,9 @@
 console.log 'up!'
 
-# this is the not stuff you want to configure! configurables are at the bottom.
+window.addEventListener 'keydown', (e) ->
+  if e.keyCode == 32 and e.target == document.body
+    e.preventDefault()
+  return
 
 searchParameters = {
   query: '',
@@ -86,7 +89,6 @@ search = () ->
 
 $(document).ready () ->
   $(document).keyup () ->
-    # these are the configurables!
     searchParameters = {
       query: $('#query').val(),
       categories: $('#categories').val(),
@@ -95,8 +97,11 @@ $(document).ready () ->
       tournaments: $('#tournaments').val(),
       searchType: $('#searchType').find(':selected').val()
     }
-    readSpeed = 120 # number of milliseconds between words
-    # end configurables
+    try
+      readSpeed = Number($('#readSpeed').val())
+    catch e
+      alert ('read speed was not a number!')
+      readSpeed = 120
     if event.which == 32
       if currentlyIsBuzzing and not questionFinished
         finish()
