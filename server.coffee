@@ -55,6 +55,7 @@ app.get '/search/:search', (req, res) ->
     subcategories = split(search[2], ',')
     difficulties = split(search[3], ',')
     tournamentsRaw = split(search[4], ',')
+    console.log 'raw ' + tournamentsRaw
     tournaments = {$or: []} # as it is in the mongodb
     searchType = search[5]
 
@@ -62,7 +63,6 @@ app.get '/search/:search', (req, res) ->
 
     for k,v of difficulties
       difficulties[k] = Number v
-
 
     if tournamentsRaw.length == 0
       tournaments = {'tournament': {$exists: true}}
