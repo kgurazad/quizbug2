@@ -58,7 +58,7 @@ finish = () ->
   return
 
 search = () ->
-  url = ''
+  url = '!'
   url += searchParameters.query
   url += '!'
   url += searchParameters.categories
