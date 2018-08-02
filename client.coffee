@@ -75,6 +75,9 @@ search = () ->
   $.getJSON 'search/'+url, (res) ->
     questions = res
     console.log questions
+    if questions.length == 0
+      $('#question').text('No questions found. Try loosening your filters.')
+      return
     question = null
     next()
     return

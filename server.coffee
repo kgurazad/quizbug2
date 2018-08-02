@@ -89,6 +89,9 @@ app.get '/search/:search', (req, res) ->
     else
       query = {'text.answer': {$regex: new RegExp(queryString, 'i')}}
 
+    if queryString == ''
+      query = {'text': {$exists: true}}
+
     searchParams.$and.push query
     searchParams.$and.push tournaments
     searchParams['difficulty'] = {$in: difficulties}
