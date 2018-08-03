@@ -23,9 +23,11 @@ html,body {
     width: auto;
 }
 #buttons {
+    margin: 1%;
     width: 100%;
     text-align: center;
 }
 .button {
-    display: inline-block;
+    width: 100%
 }
+
