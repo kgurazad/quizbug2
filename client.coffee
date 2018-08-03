@@ -46,13 +46,13 @@ next = () ->
     $('#question').append(questionText[word] + ' ')
     word++
     if word == questionText.length
+      $('#question').append(' (end)')
       questionEnded = true
     return
   , readSpeed
   return
 
 finish = () ->
-  $('#question').append(' [end]')
   questionEnded = true
   questionFinished = true
   window.clearInterval(readInterval)
