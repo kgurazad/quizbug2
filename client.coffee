@@ -126,6 +126,13 @@ $(document).ready () ->
   $(document).keyup () ->
     if document.activeElement.tagName != 'BODY'
       return
+    
+    alert $('#query').val()
+    alert $('#categories').val()
+    alert $('#subcategories').val()
+    alert $('#tournaments').val()
+    alert $('#searchType').find(':selected').val()
+
     searchParameters = {
       query: $('#query').val(),
       categories: $('#categories').val(),
