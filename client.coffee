@@ -43,7 +43,7 @@ next = () ->
   $('#metadata').append('<li class="breadcrumb-item">Question '+(questions.indexOf(question) + 1)+' of '+questions.length+'</li>')
   questionText = question.text.question.split(' ')
   $('#question').text('');
-  $('#answer').text('');
+  $('#answer').text('Press [space] to buzz.');
   readInterval = window.setInterval () ->
     if currentlyIsBuzzing or questionFinished or questionEnded
       return
@@ -56,6 +56,7 @@ next = () ->
   return
 
 finish = () ->
+  $('#question').append(' [end]')
   questionEnded = true
   questionFinished = true
   window.clearInterval(readInterval)
@@ -129,6 +130,7 @@ $(document).ready () ->
       currentlyIsBuzzing = false
     else if not questionFinished
       $('#question').append('(#) ')
+      $('#answer').text('Click again to reveal.')
       currentlyIsBuzzing = true
     return
   $(document).keyup () ->
@@ -144,6 +146,7 @@ $(document).ready () ->
         finish()
         currentlyIsBuzzing = false
       else if not questionFinished
+        $('#answer').text('Press [space] to reveal.')
         $('#question').append('(#) ')
         currentlyIsBuzzing = true
     else if event.which == 78
