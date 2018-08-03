@@ -5,14 +5,6 @@ window.addEventListener 'keydown', (e) ->
     e.preventDefault()
   return
 
-searchParameters = {
-  query: '',
-  categories: [],
-  subcategories: [],
-  search_types: [],
-  difficulties: [],
-  tournaments: []
-}
 readSpeed = 120
 currentlyIsBuzzing = false
 questionEnded = false
@@ -43,7 +35,11 @@ next = () ->
   $('#metadata').append('<li class="breadcrumb-item">Question '+(questions.indexOf(question) + 1)+' of '+questions.length+'</li>')
   questionText = question.text.question.split(' ')
   $('#question').text('');
-  $('#answer').text('Press [space] to buzz.');
+  if buttons
+    $('#answer').text('Click the button to buzz.')
+    $('#b').text('Buzz')
+  else
+    $('#answer').text('Press [space] to buzz.');
   readInterval = window.setInterval () ->
     if currentlyIsBuzzing or questionFinished or questionEnded
       return
@@ -131,6 +127,7 @@ $(document).ready () ->
     else if not questionFinished
       $('#question').append('(#) ')
       $('#answer').text('Click again to reveal.')
+      $('#b').text('Reveal')
       currentlyIsBuzzing = true
     return
   $(document).keyup () ->
