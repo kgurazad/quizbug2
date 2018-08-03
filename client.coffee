@@ -25,6 +25,10 @@ questionText = null
 readInterval = null
 word = 0
 
+back = () ->
+  question = questions[(questions.indexOf(question) - 2 + questions.length) % questions.length]
+  next()
+
 next = () ->
   finish()
   questionEnded = false
@@ -107,6 +111,9 @@ $(document).ready () ->
   $('#n').click () ->
     next()
     return
+  $('#r').click () ->
+    back()
+    return
   $('#b').click () ->
     if currentlyIsBuzzing and not questionFinished
       finish()
@@ -140,6 +147,8 @@ $(document).ready () ->
         currentlyIsBuzzing = true
     else if event.which == 78
       next()
+    else if event.which == 66
+      back()
     else if event.which == 83
       search()
     setTimeout () ->
