@@ -25,4 +25,6 @@ html,body {
 #b {
     margin-bottom: 1%;
 }
-
+#p {
+    float: left;
+}
