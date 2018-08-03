@@ -91,6 +91,20 @@ search = () ->
   return
 
 $(document).ready () ->
+  $('#s').onclick () ->
+    search()
+    return
+  $('#n').onclick () ->
+    next()
+    return
+  $('#b').onclick () ->
+    if currentlyIsBuzzing and not questionFinished
+      finish()
+      currentlyIsBuzzing = false
+    else if not questionFinished
+      $('#question').append('(#) ')
+      currentlyIsBuzzing = true
+    return
   $(document).keyup () ->
     if document.activeElement.tagName != 'BODY'
       return

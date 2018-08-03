@@ -22,3 +22,10 @@ html,body {
     padding: 1rem;
     width: auto;
 }
+#buttons {
+    width: 100%;
+    text-align: center;
+}
+.button {
+    display: inline-block;
+}
