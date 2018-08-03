@@ -97,6 +97,7 @@ search = () ->
 
 $(document).ready () ->
   $('.btn-block').hide()
+  $('#searchType').val('a')
   $('#p').click () ->
     if buttons
       buttons = false
