@@ -91,13 +91,13 @@ search = () ->
   return
 
 $(document).ready () ->
-  $('#s').onclick () ->
+  $('#s').click () ->
     search()
     return
-  $('#n').onclick () ->
+  $('#n').click () ->
     next()
     return
-  $('#b').onclick () ->
+  $('#b').click () ->
     if currentlyIsBuzzing and not questionFinished
       finish()
       currentlyIsBuzzing = false
