@@ -18,6 +18,7 @@ currentlyIsBuzzing = false
 questionEnded = false
 questionFinished = false
 questionAnswered = false
+buttons = false
 questions = null
 question = null
 questionText = null
@@ -91,6 +92,14 @@ search = () ->
   return
 
 $(document).ready () ->
+  $('#p').click () ->
+    if buttons
+      buttons = false
+      $('.btn-block').hide()
+    else
+      buttons = true
+      $('.btn-block').show()
+    return
   $('#s').click () ->
     search()
     return
