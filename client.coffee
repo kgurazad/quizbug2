@@ -68,6 +68,14 @@ finish = () ->
   return
 
 search = () ->
+  searchParameters = {
+    query: $('#query').val(),
+    categories: $('#categories').val(),
+    subcategories: $('#subcategories').val(),
+    difficulties: $('#difficulties').val(),
+    tournaments: $('#tournaments').val(),
+    searchType: $('#searchType').find(':selected').val()
+  }
   url = ''
   url += searchParameters.query
   url += '!'
@@ -126,21 +134,6 @@ $(document).ready () ->
   $(document).keyup () ->
     if document.activeElement.tagName != 'BODY'
       return
-    
-    alert $('#query').val()
-    alert $('#categories').val()
-    alert $('#subcategories').val()
-    alert $('#tournaments').val()
-    alert $('#searchType').find(':selected').val()
-
-    searchParameters = {
-      query: $('#query').val(),
-      categories: $('#categories').val(),
-      subcategories: $('#subcategories').val(),
-      difficulties: $('#difficulties').val(),
-      tournaments: $('#tournaments').val(),
-      searchType: $('#searchType').find(':selected').val()
-    }
     try
       readSpeed = Number($('#readSpeed').val())
     catch e
