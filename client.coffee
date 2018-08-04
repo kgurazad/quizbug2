@@ -17,17 +17,6 @@ questionText = null
 readInterval = null
 word = 0
 
-shuffle = () ->
-  currentIndex = questions.length
-  while 0 != currentIndex
-    randomIndex = Math.floor(Math.random() * currentIndex)
-    currentIndex -= 1
-    temporaryValue = questions[currentIndex]
-    questions[currentIndex] = questions[randomIndex]
-    questions[randomIndex] = temporaryValue
-  question = null
-  return questions
-
 back = () ->
   question = questions[(questions.indexOf(question) - 2 + questions.length) % questions.length]
   next()
@@ -66,6 +55,18 @@ next = () ->
       questionEnded = true
     return
   , readSpeed
+  return
+
+randomize = () ->
+  currentIndex = questions.length
+  while 0 != currentIndex
+    randomIndex = Math.floor(Math.random() * currentIndex)
+    currentIndex -= 1
+    temporaryValue = questions[currentIndex]
+    questions[currentIndex] = questions[randomIndex]
+    questions[randomIndex] = temporaryValue
+  question = null
+  next()
   return
 
 finish = () ->
@@ -137,7 +138,7 @@ $(document).ready () ->
     back()
     return
   $('#r').click () ->
-    shuffle()
+    randomize()
     return
   $('#b').click () ->
     if currentlyIsBuzzing and not questionFinished
@@ -167,7 +168,7 @@ $(document).ready () ->
     else if event.which == 83
       search()
     else if event.which == 82
-      shuffle()
+      randomize()
     return
   return
 
