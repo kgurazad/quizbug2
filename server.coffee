@@ -89,7 +89,7 @@ app.get '/search/:search', (req, res) ->
         tournaments.$or.push {'tournament.year': {$exists: true}, 'tournament.name': mergeSpaces tSplit.slice 1 }
 
     if tournamentsRaw.length == 1
-      tournaments = tournaments.$or
+      tournaments = tournaments.$or[0]
     console.log tournaments
 
     if searchType == 'qa'
