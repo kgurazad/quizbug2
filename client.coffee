@@ -5,6 +5,18 @@ window.addEventListener 'keydown', (e) ->
     e.preventDefault()
   return
 
+shuffle = (array) ->
+  currentIndex = array.length
+  temporaryValue = undefined
+  randomIndex = undefined
+  while 0 != currentIndex
+    randomIndex = Math.floor(Math.random() * currentIndex)
+    currentIndex -= 1
+    temporaryValue = array[currentIndex]
+    array[currentIndex] = array[randomIndex]
+    array[randomIndex] = temporaryValue
+  return array
+
 readSpeed = 120
 currentlyIsBuzzing = false
 questionEnded = false
@@ -122,8 +134,11 @@ $(document).ready () ->
   $('#n').click () ->
     next()
     return
-  $('#r').click () ->
+  $('#m').click () ->
     back()
+    return
+  $('#r').click () ->
+    shuffle questions
     return
   $('#b').click () ->
     if currentlyIsBuzzing and not questionFinished
@@ -152,10 +167,8 @@ $(document).ready () ->
       back()
     else if event.which == 83
       search()
-    setTimeout () ->
-      window.scrollTo 0, 0
-      return
-    , 30
+    else if event.which == 82
+      shuffle questions
     return
   return
 

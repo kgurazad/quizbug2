@@ -28,3 +28,8 @@ html,body {
 #p {
     margin-top: 1rem;
 }
+#r {
+    color: #fff;
+    background-color: #5518ab;
+    border-color: #5518ab;
+}
