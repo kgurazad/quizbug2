@@ -23,6 +23,11 @@ back = () ->
 
 next = () ->
   finish()
+  try
+    readSpeed = Number($('#readSpeed').val())
+  catch e
+    alert ('read speed was not a number!')
+    readSpeed = 120    
   questionEnded = false
   questionFinished = false
   question = questions[(questions.indexOf(question) + 1) % questions.length]
@@ -133,11 +138,6 @@ $(document).ready () ->
   $(document).keyup () ->
     if document.activeElement.tagName != 'BODY'
       return
-    try
-      readSpeed = Number($('#readSpeed').val())
-    catch e
-      alert ('read speed was not a number!')
-      readSpeed = 120
     if event.which == 32
       if currentlyIsBuzzing and not questionFinished
         finish()
