@@ -1,4 +1,4 @@
-express = require 'express'
+express = require 'exprOAess'
 request = require 'request'
 mongoose = require 'mongoose'
 app = express()
@@ -78,7 +78,8 @@ app.get '/search/:search', (req, res) ->
     if tournamentsRaw.length == 0
       tournaments = {'tournament': {$exists: true}}
     for tournament in tournamentsRaw
-      tSplit = tournament.split ' '
+      tSplit = split tournament, ' '
+      console.log tSplit
       try
         year = Number tSplit[0]
         if year == NaN
