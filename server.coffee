@@ -81,12 +81,14 @@ app.get '/search/:search', (req, res) ->
       tSplit = tournament.split ' '
       try
         year = Number tSplit[0]
+	if year == NaN
+	  throw "nan"
         if tSplit.length == 1
           tournaments.$or.push {'tournament.year': year, 'tournament.name': {$exists: true} }
         else
           tournaments.$or.push {'tournament.year': year, 'tournament.name': mergeSpaces tSplit.slice 1 }
       catch e
-        tournaments.$or.push {'tournament.year': {$exists: true}, 'tournament.name': mergeSpaces tSplit.slice 1 }
+        tournaments.$or.push {'tournament.year': {$exists: true}, 'tournament.name': mergeSpaces tSplit }
 
     if tournamentsRaw.length == 1
       tournaments = tournaments.$or[0]
