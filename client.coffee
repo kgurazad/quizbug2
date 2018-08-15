@@ -51,7 +51,7 @@ next = () ->
     $('#question').append(questionText[word] + ' ')
     word++
     if word == questionText.length
-      $('#question').append(' (end)')
+      $('#question').append(' (end) ')
       questionEnded = true
     return
   , readSpeed
