@@ -125,7 +125,7 @@ app.get '/search/:search', (req, res) ->
 
     console.log JSON.stringify searchParams
 
-    model.countDocuments searchParams, (err, count) ->
+    model.estimatedDocumentCount searchParams, (err, count) ->
       console.log 'there are ' + count  + ' documents found'
       if count > 1331
         console.log 'aggregating!'
