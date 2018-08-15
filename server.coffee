@@ -125,9 +125,12 @@ app.get '/search/:search', (req, res) ->
 
     console.log JSON.stringify searchParams
 
-    model.count searchParams, (err, count) ->
+    model.countDocuments searchParams, (err, count) ->
+      console.log 'there are ' + count  + 'documents found'
       if count > 1331
+        console.log 'aggregating!'
         model.aggregate([{$match: searchParams}, {$sample: {size: 1331}}]).exec (err, data) ->
+          console.log 'there are ' + data.length + 'documents to be sent'
           if err?
             console.log err.stack
             res.sendStatus 503
@@ -136,7 +139,9 @@ app.get '/search/:search', (req, res) ->
           return
 	# comment
       else
+        console.log 'regular finding!'
         model.find searchParams, (err, data) ->
+          console.log 'there are ' + data.length + 'documents to be sent'
           if err?
             console.log err.stack
             res.sendStatus 503
