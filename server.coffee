@@ -115,20 +115,17 @@ app.get '/search/:search', (req, res) ->
     searchParams['subcategory'] = {$in: subcategories}
 
     if difficulties.length == 0
-      searchParams['difficulty'] = {$exists: true}
-      console.log 'nodif'
+      searchParams['difficulty'] = undefined
       
     if categories.length == 0
-      searchParams['category'] = {$exists: true}
-      console.log 'nocat'
+      searchParams['category'] = undefined
       
     if subcategories.length == 0
-      searchParams['subcategory'] = {$exists: true}
-      console.log 'nosub'
+      searchParams['subcategory'] = undefined
 
     console.log JSON.stringify searchParams
 
-    model.find(searchParams).limit(1331).find (e, data) ->
+    model.aggregate({$match: searchParams, $sample: {size: 1331}}).exec (e, data) ->
       if e?
         console.log e.stack
         res.sendStatus 503
