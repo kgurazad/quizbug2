@@ -137,13 +137,13 @@ app.get '/search/:search', (req, res) ->
 	# comment
       else
         model.find searchParams, (err, data) ->
-	  if err?
-	    console.log err.stack
-	    res.sendStatus 503
-	    return
-	  res.send data
-	  return
-	# comment
+          if err?
+            console.log err.stack
+            res.sendStatus 503
+            return
+          res.send data
+          return
+        # comment
       return
 	
   catch e
