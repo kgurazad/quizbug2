@@ -115,10 +115,10 @@ app.get '/search/:search', (req, res) ->
     searchParams['subcategory'] = {$in: subcategories}
 
     if difficulties.length == 0
-      searchParams['difficulty'] = {'difficulty': {$exists: true}}
+      searchParams['difficulty'] = undefined
       
     if categories.length == 0
-      searchParams['category'] = {'category': {$exists: true}}
+      searchParams['category'] = undefined
       
     if subcategories.length == 0
       searchParams['subcategory'] = undefined
@@ -126,11 +126,11 @@ app.get '/search/:search', (req, res) ->
     console.log JSON.stringify searchParams
 
     model.countDocuments searchParams, (err, count) ->
-      console.log 'there are ' + count  + 'documents found'
+      console.log 'there are ' + count  + ' documents found'
       if count > 1331
         console.log 'aggregating!'
         model.aggregate([{$match: searchParams}, {$sample: {size: 1331}}]).exec (err, data) ->
-          console.log 'there are ' + data.length + 'documents to be sent'
+          console.log 'there are ' + data.length + ' documents to be sent'
           if err?
             console.log err.stack
             res.sendStatus 503
@@ -141,7 +141,7 @@ app.get '/search/:search', (req, res) ->
       else
         console.log 'regular finding!'
         model.find searchParams, (err, data) ->
-          console.log 'there are ' + data.length + 'documents to be sent'
+          console.log 'there are ' + data.length + ' documents to be sent'
           if err?
             console.log err.stack
             res.sendStatus 503
