@@ -127,7 +127,7 @@ app.get '/search/:search', (req, res) ->
 
     model.count searchParams, (err, count) ->
       if count > 1331
-        model.aggregate([{$match: searchParams}, {$sample: {size: 1331}).sample(1331).exec (err, data) ->
+        model.aggregate([{$match: searchParams}, {$sample: {size: 1331}]).exec (err, data) ->
           if err?
             console.log err.stack
             res.sendStatus 503
