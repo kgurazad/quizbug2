@@ -129,7 +129,7 @@ app.get '/search/:search', (req, res) ->
       console.log 'there are ' + count  + ' documents found'
       if count > 1331
         console.log 'aggregating!'
-	aggregateParams = [searchParams, {$sample: {size: 1331}]
+        aggregateParams = [searchParams, {$sample: {size: 1331}]
         model.aggregate aggregateParams, (err, data) ->
           console.log 'there are ' + data.length + ' documents to be sent'
           if err?
