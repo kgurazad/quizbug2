@@ -115,13 +115,13 @@ app.get '/search/:search', (req, res) ->
     searchParams['subcategory'] = {$in: subcategories}
 
     if difficulties.length == 0
-      searchParams['difficulty'] = undefined
+      delete searchParams['difficulty']
       
     if categories.length == 0
-      searchParams['category'] = undefined
+      delete searchParams['category']
       
     if subcategories.length == 0
-      searchParams['subcategory'] = undefined
+      delete searchParams['subcategory']
 
     console.log JSON.stringify searchParams
 
@@ -130,7 +130,7 @@ app.get '/search/:search', (req, res) ->
       if count > 1331
         console.log 'aggregating!'
         aggregateParams = [{$match: searchParams}, {$sample: {size: 1331}}]
-        console.log aggregateParams
+        console.log JSON.stringify aggregateParams
         model.aggregate aggregateParams, (err, data) ->
           console.log 'there are ' + data.length + ' documents to be sent'
           if err?
