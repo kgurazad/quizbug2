@@ -125,7 +125,7 @@ app.get '/search/:search', (req, res) ->
 
     console.log JSON.stringify searchParams
 
-    model.aggregate({$match: searchParams}).sample(1331).exec (e, data) ->
+    model.aggregate([{$match: searchParams}]).sample(1331).exec (e, data) ->
       if e?
         console.log e.stack
         res.sendStatus 503
