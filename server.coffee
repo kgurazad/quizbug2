@@ -115,10 +115,10 @@ app.get '/search/:search', (req, res) ->
     searchParams['subcategory'] = {$in: subcategories}
 
     if difficulties.length == 0
-      searchParams['difficulty'] = undefined
+      searchParams['difficulty'] = {'difficulty': {$exists: true}}
       
     if categories.length == 0
-      searchParams['category'] = undefined
+      searchParams['category'] = {'category': {$exists: true}}
       
     if subcategories.length == 0
       searchParams['subcategory'] = undefined
