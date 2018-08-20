@@ -50,18 +50,6 @@ app.get '/style.css', (req, res) ->
   res.sendFile __dirname+'/style.css'
   return
 
-app.get '/speak.js', (req, res) ->
-  res.sendFile __dirname+'/speak.js'
-  return
-
-app.get '/speakWorker.js', (req, res) ->
-  res.sendFile __dirname+'/speakWorker.js'
-  return
-
-app.get	'/speakGenerator.js', (req, res) ->
-  res.sendFile __dirname+'/speakGenerator.js'
-  return
-
 app.get '/search/:search', (req, res) ->
   try
     search = req.params.search.split('!')
