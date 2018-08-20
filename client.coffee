@@ -49,7 +49,6 @@ next = () ->
     if currentlyIsBuzzing or questionFinished or questionEnded
       return
     $('#question').append(questionText[word] + ' ')
-    speak questionText[word]
     word++
     if word == questionText.length
       $('#question').append(' (end) ')
