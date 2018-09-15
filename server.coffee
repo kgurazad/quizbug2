@@ -125,7 +125,7 @@ app.get '/search/:search', (req, res) ->
 
     console.log JSON.stringify searchParams
 
-    model.count searchParams, (err, count) ->
+    model.countDocuments searchParams, (err, count) ->
       if err?
       	 console.log err
 	 return
