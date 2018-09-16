@@ -134,7 +134,7 @@ app.get '/search/:search', (req, res) ->
         console.log 'aggregating!'
         aggregateParams = [{$match: searchParams}, {$sample: {size: 1331}}]
         console.log JSON.stringify aggregateParams
-        model.aggregate aggregateParams, (err, data) ->
+        model.aggregate(aggregateParams).read('sp').exec (err, data) ->
           console.log 'there are ' + data.length + ' documents to be sent'
           if err?
             console.log err.stack
@@ -145,7 +145,7 @@ app.get '/search/:search', (req, res) ->
 	# comment
       else
         console.log 'regular finding!'
-        model.find searchParams, (err, data) ->
+        model.find(searchParams).read('sp').exec (err, data) ->
           console.log 'there are ' + data.length + ' documents to be sent'
           if err?
             console.log err.stack
