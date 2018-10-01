@@ -111,7 +111,7 @@ app.get '/search/:search', (req, res) ->
     searchParams.$and.push query
     searchParams.$and.push tournaments
     searchParams['difficulty'] = {$in: difficulties}
-    if categories != [] and subcategories != []
+    if categories.length > 0 and subcategories.length > 0
       searchParams['$or'] = [] 
       searchParams['$or']['category'] = {$in: categories}
       searchParams['$or']['subcategory'] = {$in: subcategories}
