@@ -69,7 +69,7 @@ app.get '/search/:search', (req, res) ->
     searchType = search[5]
     console.log searchType
 
-    searchParams = {$and: [], $or: []}
+    searchParams = {$and: []}
 
     for k,v of difficulties
       difficulties[k] = Number v
@@ -111,8 +111,13 @@ app.get '/search/:search', (req, res) ->
     searchParams.$and.push query
     searchParams.$and.push tournaments
     searchParams['difficulty'] = {$in: difficulties}
-    searchParams['$or']['category'] = {$in: categories}
-    searchParams['$or']['subcategory'] = {$in: subcategories}
+    if categories != [] and subcategories != []
+      searchParams['$or'] = [] 
+      searchParams['$or']['category'] = {$in: categories}
+      searchParams['$or']['subcategory'] = {$in: subcategories}
+    else 
+      searchParams['category'] = {$in: categories}
+      searchParams['subcategory'] = {$in: subcategories}
 
     if difficulties.length == 0
       delete searchParams['difficulty']
