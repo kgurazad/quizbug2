@@ -150,7 +150,7 @@ $(document).ready () ->
       $('#b').text('Reveal')
       currentlyIsBuzzing = true
     return
-  $(document).keyup () ->
+  $(document).keyup (event) ->
     if document.activeElement.tagName != 'BODY'
       return
     if event.which == 32
