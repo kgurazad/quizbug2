@@ -63,24 +63,20 @@ app.get '/viselect.js', (req, res) ->
 
 app.get '/categories', (req, res) ->
   metamodel.findOne({name: 'categories'}).read('sp').exec (err, meta) ->
-    res.send meta
+    res.send meta.values
     return
   return
 
 app.get '/subcategories', (req, res) ->
   metamodel.findOne({name: 'subcategories'}).read('sp').exec (err, meta) ->
-    res.send meta
+    res.send meta.values
     return
   return
 
 app.get '/tournaments', (req, res) ->
   console.log 'tournament search'
   metamodel.findOne({name: 'tournaments'}).read('sp').exec (err, meta) ->
-    if err?
-      console.error err.stack
-      return
-    console.log meta
-    res.send meta
+    res.send meta.values
     return
   return
 
