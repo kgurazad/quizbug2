@@ -74,7 +74,10 @@ app.get '/subcategories', (req, res) ->
   return
 
 app.get '/tournaments', (req, res) ->
+  console.log 'tournament search'
   metamodel.findOne {name: 'tournaments'}, (err, meta) ->
+    if err console.error err.stack
+    console.log meta
     res.send meta
     return
   return
