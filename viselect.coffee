@@ -46,7 +46,7 @@ class window.ViSelect
         return
       ins = $('#' + @name).val().trim().split(/,\s*/)
       curVal = $(this).html()
-      if (ins.indexOf curVal == -1)
+      if (ins.indexOf(curVal) == -1)
         ins[ins.length - 1] = curVal
       else
         ins = ins.slice 0, -1
@@ -68,7 +68,7 @@ class window.ViSelect
       if event.which == 13
         ins = $(this).val().trim().split(/,\s*/)
         curVal = $('.under-' + @name + '-item.active').html()
-        if (ins.indexOf curVal == -1)
+        if (ins.indexOf(curVal) == -1)
           ins[ins.length - 1] = curVal
         else
           ins = ins.slice 0, -1
