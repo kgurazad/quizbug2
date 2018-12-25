@@ -2,6 +2,8 @@ express = require 'express'
 request = require 'request'
 mongoose = require 'mongoose'
 app = express()
+app.use express.json()
+app.use express.urlencoded()
 mongoose.connect process.env.DB
 
 port = process.env.PORT || 2020
@@ -14,6 +16,11 @@ schema = mongoose.Schema({
     subcategory: String
 })
 model = mongoose.model('qs',schema,'raw-quizdb-clean')
+metascheme = mongoose.Schema({
+    name: String,
+    values: [String]
+})
+metamodel = mongoose.model('meta', metascheme, 'meta')
 
 split = (str, separator) ->  
   if str.length == 0
@@ -50,23 +57,43 @@ app.get '/style.css', (req, res) ->
   res.sendFile __dirname+'/style.css'
   return
 
-app.get '/search/:search', (req, res) ->
+app.get '/viselect.js', (req, res) ->
+  res.sendFile __dirname+'/viselect.js'
+  return
+
+app.get '/categories', (req, res) ->
+  metamodel.findOne {name: 'categories'}, (err, meta) ->
+    res.send meta
+    return
+  return
+
+app.get '/subcategories', (req, res) ->
+  metamodel.findOne {name: 'subcategories'}, (err, meta) ->
+    res.send meta
+    return
+  return
+
+app.get '/tournaments', (req, res) ->
+  metamodel.findOne {name: 'tournaments'}, (err, meta) ->
+    res.send meta
+    return
+  return
+
+app.get '/search', (req, res) ->
   try
-    search = req.params.search.split('!')
-    console.log search
-    queryString = escapeRegExp search[0]
+    queryString = escapeRegExp req.body.query
     console.log queryString
     query = {}
-    categories = split(search[1], ',')
+    categories = split(req.body.categories.trim(), /,\s*/)
     console.log categories
-    subcategories = split(search[2], ',')
+    subcategories = split(req.body.subcategories.trim(), /,\s*/)
     console.log subcategories
-    difficulties = split(search[3], ',')
+    difficulties = split(req.body.difficulties.trim(), /,\s*/)
     console.log difficulties
-    tournamentsRaw = split(search[4], ',')
+    tournamentsRaw = split(req.body.tournaments.trim(), /,\s*/)
     console.log tournamentsRaw
     tournaments = {$or: []} # as it is in the mongodb
-    searchType = search[5]
+    searchType = req.body.searchType
     console.log searchType
 
     searchParams = {$and: []}

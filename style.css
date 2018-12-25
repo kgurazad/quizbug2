@@ -33,3 +33,22 @@ html,body {
     background-color: #5518ab;
     border-color: #5518ab;
 }
+.around-input, #readSpeed, #query, #difficulties, #searchType {
+  width: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+input {
+  width: 100%;
+}
+
+.list-group-item:first-child {
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+}
+
+.list-group-item:last-child {
+  border-bottom-left-radius: 1rem !important;
+  border-bottom-right-radius: 1rem !important;
+}

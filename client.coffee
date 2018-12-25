@@ -90,23 +90,24 @@ search = () ->
     tournaments: $('#tournaments').val(),
     searchType: $('#searchType').find(':selected').val()
   }
-  url = ''
+  url = 'search?'
+  url += 'query='
   url += searchParameters.query
-  url += '!'
+  url += '&categories='
   url += searchParameters.categories
-  url += '!'
+  url += '&subcategories='
   url += searchParameters.subcategories
-  url += '!'
+  url += '&difficulties='
   url += searchParameters.difficulties
-  url += '!'
+  url += '&tournaments='
   url += searchParameters.tournaments
-  url += '!'
+  url += '&searchType='
   url += searchParameters.searchType
   finish()
   $('#question').text('this may take a while...')
   $('#answer').text('')
   console.log url
-  $.getJSON 'search/'+url, (res) ->
+  $.getJSON url, (res) ->
     questions = res
     console.log questions
     if questions.length == 0
@@ -117,7 +118,20 @@ search = () ->
     return
   return
 
+initMenus = () ->
+  $.getJSON '/categories', (data) ->
+    new ViSelect 'categories', data
+    return
+  $.getJSON '/subcategories', (data) ->
+    new ViSelect 'subcategories', data
+    return
+  $.getJSON '/tournaments', (data) ->
+    new ViSelect 'tournaments', data
+    return
+  return
+
 $(document).ready () ->
+  initMenus()
   $('.btn-block').hide()
   $('#searchType').val('a')
   $('#p').click () ->
@@ -171,4 +185,3 @@ $(document).ready () ->
       randomize()
     return
   return
-
