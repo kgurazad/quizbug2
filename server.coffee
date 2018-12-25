@@ -101,6 +101,7 @@ app.get '/tournaments', (req, res) ->
 
 app.get '/search', (req, res) ->
   try
+    console.log req.body
     console.log req.body.query
     console.log req.body.categories
     console.log req.body.subcategories
