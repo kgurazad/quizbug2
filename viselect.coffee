@@ -79,7 +79,7 @@ class window.ViSelect
       val = $(this).val().toLowerCase().trim().split(/,\s*/).slice(-1)[0]
       num = 0
       for i of @values
-        word = words[i]
+        word = @values[i]
         if word.toLowerCase().startsWith(val)
           num++
           if num == 1
