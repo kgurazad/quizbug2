@@ -35,7 +35,7 @@ next = () ->
   $('#metadata').append('<li class="breadcrumb-item">'+question.tournament.year+' '+question.tournament.name+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">Difficulty Level '+question.difficulty+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">'+question.category+'</li>')
-  $('#metadata').append('<li class="breadcrumb-item">'+question.subcategory+'</li>')
+  $('#metadata').append('<li class="breadcrumb-item">'+(question.subcategory || 'No Subcat')+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">QuizDB ID #'+question.id+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">Question '+(questions.indexOf(question) + 1)+' of '+questions.length+'</li>')
   questionText = question.text.question.split(' ')
@@ -118,15 +118,12 @@ search = () ->
 
 initMenus = () ->
   $.getJSON '/categories', (data) ->
-    console.log 'got json! ' + data
     new window.ViSelect 'categories', data
     return
   $.getJSON '/subcategories', (data) ->
-    console.log	'got json! ' + data
     new window.ViSelect 'subcategories', data
     return
   $.getJSON '/tournaments', (data) ->
-    console.log	'got json! ' + data
     new window.ViSelect 'tournaments', data
     return
   return
