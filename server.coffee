@@ -38,15 +38,15 @@ escapeRegExp = (str) ->
   str.replace /[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&'
 
 app.use (req, res) ->
-  res.send 'NEG 5 - Page Not Found (404)', 404
+  res.status(404).send 'NEG 5 - Page Not Found (404)'
   return
 
 app.use (req, res) ->
-  res.send 'NEG 5 - Internal Server Error (500)', 500
+  res.status(500).send 'NEG 5 - Internal Server Error (500)'
   return
 
 app.use (req, res) ->
-  res.send 'NEG 5 - Server Breakdown; Temporarily Unavailable (503)', 503
+  res.status(503).send 'NEG 5 - Server Breakdown; Temporarily Unavailable (503)'
   return
 
 app.get '/', (req, res) ->
