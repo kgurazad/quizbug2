@@ -83,12 +83,12 @@ finish = () ->
 
 search = () ->
   searchParameters = {
-    query: $('#query').val(),
-    categories: $('#categories').val(),
-    subcategories: $('#subcategories').val(),
-    difficulties: $('#difficulties').val(),
-    tournaments: $('#tournaments').val(),
-    searchType: $('#searchType').find(':selected').val()
+    query: $('#query').val().trim(),
+    categories: $('#categories').val().trim(),
+    subcategories: $('#subcategories').val().trim(),
+    difficulties: $('#difficulties').val().trim(),
+    tournaments: $('#tournaments').val().trim(),
+    searchType: $('#searchType').find(':selected').val().trim()
   }
   url = 'search?'
   url += 'query='
