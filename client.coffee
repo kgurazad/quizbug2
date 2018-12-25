@@ -106,10 +106,8 @@ search = () ->
   finish()
   $('#question').text('this may take a while...')
   $('#answer').text('')
-  console.log url
   $.getJSON url, (res) ->
     questions = res
-    console.log questions
     if questions.length == 0
       $('#question').text('No questions found. Try loosening your filters.')
       return
@@ -120,12 +118,15 @@ search = () ->
 
 initMenus = () ->
   $.getJSON '/categories', (data) ->
+    console.log 'got json! ' + data
     new ViSelect 'categories', data
     return
   $.getJSON '/subcategories', (data) ->
+    console.log	'got json! ' + data
     new ViSelect 'subcategories', data
     return
   $.getJSON '/tournaments', (data) ->
+    console.log	'got json! ' + data
     new ViSelect 'tournaments', data
     return
   return
