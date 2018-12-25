@@ -6,6 +6,17 @@ class window.ViSelect
     @setFocusListeners()
     @setClickListeners()
     @setKeyListeners()
+    num = 0
+    for i of @values
+      word = @values[i]
+      num++
+      if num == 1
+        $('#under-' + @name).append '<li class="under-' + @name + '-item list-group-item active">' + word + '</li>'
+      else
+        $('#under-' + @name).append '<li class="under-' + @name + '-item list-group-item">' + word + '</li>'
+      if num == 6
+        break
+      #
     return
 
   setFocusListeners: () ->
