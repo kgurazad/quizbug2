@@ -94,7 +94,6 @@ app.get '/subcategories', (req, res) ->
   return
 
 app.get '/tournaments', (req, res) ->
-  console.log 'tournament search'
   metamodel.findOne({name: 'tournaments'}).read('sp').exec (err, meta) ->
     res.send meta.values
     return
@@ -102,16 +101,22 @@ app.get '/tournaments', (req, res) ->
 
 app.get '/search', (req, res) ->
   try
-    queryString = escapeRegExp(req.body.query || '') 
+    console.log req.body.query
+    console.log req.body.categories
+    console.log req.body.subcategories
+    console.log req.body.difficulties
+    console.log req.body.tournaments
+    console.log req.body.searchType
+    queryString = escapeRegExp((req.body.query || '')) 
     console.log queryString
     query = {}
-    categories = split(req.body.categories || '', /,\s*/)
+    categories = split((req.body.categories || ''), /,\s*/)
     console.log categories
-    subcategories = split(req.body.subcategories || '', /,\s*/)
+    subcategories = split((req.body.subcategories || ''), /,\s*/)
     console.log subcategories
-    difficulties = split(req.body.difficulties || '', /,\s*/)
+    difficulties = split((req.body.difficulties || ''), /,\s*/)
     console.log difficulties
-    tournamentsRaw = split(req.body.tournaments || '', /,\s*/)
+    tournamentsRaw = split((req.body.tournaments || ''), /,\s*/)
     console.log tournamentsRaw
     tournaments = {$or: []} # as it is in the mongodb
     searchType = req.body.searchType
