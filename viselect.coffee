@@ -16,6 +16,8 @@ class window.ViSelect
       return
     $('#' + @name).on 'focusout', ->
       if $('#around-' + @name).find(':hover').length == 0
+        if $(this).val().slice -1 == ','
+	  $(this).val $(this).val().slice 1
         $('#under-' + @name).hide()
         return
       return
