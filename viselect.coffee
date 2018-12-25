@@ -6,6 +6,7 @@ class window.ViSelect
     @setFocusListeners()
     @setClickListeners()
     @setKeyListeners()
+    $('#under-' + @name).hide()
     num = 0
     for i of @values
       word = @values[i]
