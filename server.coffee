@@ -101,26 +101,19 @@ app.get '/tournaments', (req, res) ->
 
 app.get '/search', (req, res) ->
   try
-    console.log req.body
-    console.log req.body.query
-    console.log req.body.categories
-    console.log req.body.subcategories
-    console.log req.body.difficulties
-    console.log req.body.tournaments
-    console.log req.body.searchType
-    queryString = escapeRegExp((req.body.query || '')) 
+    queryString = escapeRegExp((req.query.query || '')) 
     console.log queryString
     query = {}
-    categories = split((req.body.categories || ''), /,\s*/)
+    categories = split((req.query.categories || ''), /,\s*/)
     console.log categories
-    subcategories = split((req.body.subcategories || ''), /,\s*/)
+    subcategories = split((req.query.subcategories || ''), /,\s*/)
     console.log subcategories
-    difficulties = split((req.body.difficulties || ''), /,\s*/)
+    difficulties = split((req.query.difficulties || ''), /,\s*/)
     console.log difficulties
-    tournamentsRaw = split((req.body.tournaments || ''), /,\s*/)
+    tournamentsRaw = split((req.query.tournaments || ''), /,\s*/)
     console.log tournamentsRaw
     tournaments = {$or: []} # as it is in the mongodb
-    searchType = req.body.searchType
+    searchType = req.query.searchType
     console.log searchType
 
     searchParams = {$and: []}
