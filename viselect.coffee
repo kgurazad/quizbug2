@@ -1,4 +1,4 @@
-class ViSelect
+class window.ViSelect
 
   constructor: (name, values) ->
     @name = name
