@@ -119,15 +119,15 @@ search = () ->
 initMenus = () ->
   $.getJSON '/categories', (data) ->
     console.log 'got json! ' + data
-    new ViSelect 'categories', data
+    new window.ViSelect 'categories', data
     return
   $.getJSON '/subcategories', (data) ->
     console.log	'got json! ' + data
-    new ViSelect 'subcategories', data
+    new window.ViSelect 'subcategories', data
     return
   $.getJSON '/tournaments', (data) ->
     console.log	'got json! ' + data
-    new ViSelect 'tournaments', data
+    new window.ViSelect 'tournaments', data
     return
   return
 
