@@ -37,12 +37,32 @@ mergeSpaces = (arr) ->
 escapeRegExp = (str) ->
   str.replace /[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&'
 
+app.use (req, res) ->
+  res.send 'NEG 5 - Page Not Found (404)', 404
+  return
+
+app.use (req, res) ->
+  res.send 'NEG 5 - Internal Server Error (500)', 500
+  return
+
+app.use (req, res) ->
+  res.send 'NEG 5 - Server Breakdown; Temporarily Unavailable (503)', 503
+  return
+
 app.get '/', (req, res) ->
   res.sendFile __dirname+'/index.html'
   return
 
 app.get '/info', (req, res) ->
   res.sendFile __dirname+'/info.html'
+  return
+
+app.get '/update', (req, res) ->
+  res.sendFile __dirname+'/update.html'
+  return
+
+app.get '/teapot', (req, res) ->
+  res.sendStatus 418
   return
 
 app.get '/favicon.ico', (req, res) ->
