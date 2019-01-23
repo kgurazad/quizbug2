@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <title>QuizBug 2 Update! Hype! :)</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://quizbug2.herokuapp.com/favicon.ico"/>
+  </head>
+  <body>
+    <h1>
+      OK this is a pretty lazy update page, but it's 2:30 am so cut me some slack thanks.
+    </h1>
+    <h3>
+      The update is focuses mainly on the client-side UI and API features.
+    </h3>
+    <p>
+      The UI now includes these awesome dropdown menus: use enter to select the highlighted option, arrow keys to move the highlighted option, and it auto-suggests based on what you've already typed! Also, it's pretty unobtrusive, and you can completely manually type everything just like old times.
+      Also, you can now use spaces after commas! This was the #1 issue people had and it was very easy to fix.
+    </p>
+    <p>
+      There is now an actual API! GET <a href="/tournaments">/tournaments</a> lists tournaments on QuizBug 2, <a href="/categories">/categories</a> and <a href="/subcategories">/subcategories</a> do the same. GET <a href="/search">/search</a> with a query string, categories, subcategories, difficulties, tournaments, and search type (a/q/qa) returns the raw JSON QuizBug 2 uses to read questions!
+    </p>
+    <p>Sample search: <code>https://quizbug2.herokuapp.com/search?query=borodin&categories=Science, Fine Arts&subcategories=Science Chemistry, Fine Arts Auditory&difficulties=3, 4, 5, 6, 7, 8&tournaments=2017, PACE NSC&searchType=qa</code></p>
+    <h3>I hope this update makes QuizBug 2 more helpful and usable for you! Thanks for using it!</h3>
+  </body>
+</html>

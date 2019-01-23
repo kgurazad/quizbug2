@@ -35,7 +35,7 @@ next = () ->
   $('#metadata').append('<li class="breadcrumb-item">'+question.tournament.year+' '+question.tournament.name+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">Difficulty Level '+question.difficulty+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">'+question.category+'</li>')
-  $('#metadata').append('<li class="breadcrumb-item">'+question.subcategory+'</li>')
+  $('#metadata').append('<li class="breadcrumb-item">'+(question.subcategory || 'No Subcat')+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">QuizDB ID #'+question.id+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">Question '+(questions.indexOf(question) + 1)+' of '+questions.length+'</li>')
   questionText = question.text.question.split(' ')
@@ -83,32 +83,31 @@ finish = () ->
 
 search = () ->
   searchParameters = {
-    query: $('#query').val(),
-    categories: $('#categories').val(),
-    subcategories: $('#subcategories').val(),
-    difficulties: $('#difficulties').val(),
-    tournaments: $('#tournaments').val(),
-    searchType: $('#searchType').find(':selected').val()
+    query: $('#query').val().trim(),
+    categories: $('#categories').val().trim(),
+    subcategories: $('#subcategories').val().trim(),
+    difficulties: $('#difficulties').val().trim(),
+    tournaments: $('#tournaments').val().trim(),
+    searchType: $('#searchType').find(':selected').val().trim()
   }
-  url = ''
+  url = 'search?'
+  url += 'query='
   url += searchParameters.query
-  url += '!'
+  url += '&categories='
   url += searchParameters.categories
-  url += '!'
+  url += '&subcategories='
   url += searchParameters.subcategories
-  url += '!'
+  url += '&difficulties='
   url += searchParameters.difficulties
-  url += '!'
+  url += '&tournaments='
   url += searchParameters.tournaments
-  url += '!'
+  url += '&searchType='
   url += searchParameters.searchType
   finish()
   $('#question').text('this may take a while...')
   $('#answer').text('')
-  console.log url
-  $.getJSON 'search/'+url, (res) ->
+  $.getJSON url, (res) ->
     questions = res
-    console.log questions
     if questions.length == 0
       $('#question').text('No questions found. Try loosening your filters.')
       return
@@ -117,7 +116,20 @@ search = () ->
     return
   return
 
+initMenus = () ->
+  $.getJSON '/categories', (data) ->
+    new window.ViSelect 'categories', data
+    return
+  $.getJSON '/subcategories', (data) ->
+    new window.ViSelect 'subcategories', data
+    return
+  $.getJSON '/tournaments', (data) ->
+    new window.ViSelect 'tournaments', data
+    return
+  return
+
 $(document).ready () ->
+  initMenus()
   $('.btn-block').hide()
   $('#searchType').val('a')
   $('#p').click () ->
@@ -171,4 +183,3 @@ $(document).ready () ->
       randomize()
     return
   return
-

@@ -2,6 +2,8 @@ express = require 'express'
 request = require 'request'
 mongoose = require 'mongoose'
 app = express()
+app.use express.json()
+app.use express.urlencoded()
 mongoose.connect process.env.DB
 
 port = process.env.PORT || 2020
@@ -14,6 +16,11 @@ schema = mongoose.Schema({
     subcategory: String
 })
 model = mongoose.model('qs',schema,'raw-quizdb-clean')
+metascheme = mongoose.Schema({
+    name: String,
+    values: [String]
+})
+metamodel = mongoose.model('meta', metascheme, 'meta')
 
 split = (str, separator) ->  
   if str.length == 0
@@ -30,12 +37,32 @@ mergeSpaces = (arr) ->
 escapeRegExp = (str) ->
   str.replace /[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&'
 
+app.use (err, req, res, next) ->
+  res.status(404).send 'NEG 5 - Page Not Found (404)'
+  return
+
+app.use (err, req, res, next) ->
+  res.status(500).send 'NEG 5 - Internal Server Error (500)'
+  return
+
+app.use (err, req, res, next) ->
+  res.status(503).send 'NEG 5 - Server Breakdown; Temporarily Unavailable (503)'
+  return
+
 app.get '/', (req, res) ->
   res.sendFile __dirname+'/index.html'
   return
 
 app.get '/info', (req, res) ->
   res.sendFile __dirname+'/info.html'
+  return
+
+app.get '/update', (req, res) ->
+  res.sendFile __dirname+'/update.html'
+  return
+
+app.get '/teapot', (req, res) ->
+  res.sendStatus 418
   return
 
 app.get '/favicon.ico', (req, res) ->
@@ -50,23 +77,43 @@ app.get '/style.css', (req, res) ->
   res.sendFile __dirname+'/style.css'
   return
 
-app.get '/search/:search', (req, res) ->
+app.get '/viselect.js', (req, res) ->
+  res.sendFile __dirname+'/viselect.js'
+  return
+
+app.get '/categories', (req, res) ->
+  metamodel.findOne({name: 'categories'}).read('sp').exec (err, meta) ->
+    res.send meta.values
+    return
+  return
+
+app.get '/subcategories', (req, res) ->
+  metamodel.findOne({name: 'subcategories'}).read('sp').exec (err, meta) ->
+    res.send meta.values
+    return
+  return
+
+app.get '/tournaments', (req, res) ->
+  metamodel.findOne({name: 'tournaments'}).read('sp').exec (err, meta) ->
+    res.send meta.values
+    return
+  return
+
+app.get '/search', (req, res) ->
   try
-    search = req.params.search.split('!')
-    console.log search
-    queryString = escapeRegExp search[0]
+    queryString = escapeRegExp((req.query.query || '')) 
     console.log queryString
     query = {}
-    categories = split(search[1], ',')
+    categories = split((req.query.categories || ''), /,\s*/)
     console.log categories
-    subcategories = split(search[2], ',')
+    subcategories = split((req.query.subcategories || ''), /,\s*/)
     console.log subcategories
-    difficulties = split(search[3], ',')
+    difficulties = split((req.query.difficulties || ''), /,\s*/)
     console.log difficulties
-    tournamentsRaw = split(search[4], ',')
+    tournamentsRaw = split((req.query.tournaments || ''), /,\s*/)
     console.log tournamentsRaw
     tournaments = {$or: []} # as it is in the mongodb
-    searchType = search[5]
+    searchType = req.query.searchType
     console.log searchType
 
     searchParams = {$and: []}

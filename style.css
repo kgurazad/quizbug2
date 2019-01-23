@@ -18,7 +18,7 @@ html,body {
     height: 100%;
     float: left;
 }
-.jumbotron,#answer {
+.jumbotron, #answer, #update {
     padding: 1rem;
     width: auto;
 }
@@ -32,4 +32,23 @@ html,body {
     color: #fff;
     background-color: #5518ab;
     border-color: #5518ab;
+}
+.around-input, #readSpeed, #query, #difficulties, #searchType {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+input {
+  width: 100%;
+}
+
+.list-group-item:first-child {
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+}
+
+.list-group-item:last-child {
+  border-bottom-left-radius: 0.5rem !important;
+  border-bottom-right-radius: 0.5rem !important;
+  margin-bottom: 0.5rem;
 }

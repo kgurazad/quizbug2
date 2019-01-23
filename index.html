@@ -5,6 +5,7 @@
       QuizBug 2
     </title>
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://quizbug2.herokuapp.com/viselect.js"></script>
     <script src="https://quizbug2.herokuapp.com/client.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://quizbug2.herokuapp.com/style.css">
@@ -23,20 +24,32 @@
       <button class="btn btn-warning btn-block" id="m">Back</button>
       <button class="btn btn-danger btn-block" id="b">Buzz/Reveal</button>
       <nav aria-label="breadcrumb"><ol id="metadata" class="breadcrumb">I contain metadata! (tournament name, difficulty, category, subcategory)</ol></nav>
+      <div id="update" class="alert alert-success">QuizBug 2 has changed! Check out <a href="/update" class=".alert-link">/update</a> for more info, and thanks for using QuizBug 2! <3</div>
       <div id="question" class="jumbotron">Nothing right now!</div>
       <div id="answer" class="alert alert-info">Answer shows up here!</div>
-      <div id="audio"></div>
     </div>
     <div id="right">
-      <p>Questions taken from QuizDB. To adjust search parameters, mess around with the searchParameters object in the client. Press [s] to search, otherwise same QuizBug keybinds. Info + Help can be found at <a href="/info">/info</a>. Have fun!</p>
-      <p>Made by Karan Gurazada. GitHub @ <a href="https://github.com/kgurazada/quizbug2">https://github.com/kgurazada/quizbug2</a>.</p>
+      <p>Questions taken from QuizDB. To adjust search parameters, mess around with the inputs below. Press [s] to search, otherwise same QuizBug keybinds. Info + Help can be found at <a href="/info">/info</a>. Hopefully the text selector thingies are intuitive. Have fun!</p>
+      <p>Made by Karan Gurazada. GitHub @ <a href="https://github.com/kgurazad/quizbug2">https://github.com/kgurazad/quizbug2</a>.</p>
       <br>
-      <input id="readSpeed" placeholder="120" value="120">
-      <input id="query" placeholder="search for...">
-      <input id="categories" placeholder="Science,History">
-      <input id="subcategories" placeholder="Science Physics,History European">
-      <input id="difficulties" placeholder="2,4,6,9">
-      <input id="tournaments" placeholder="2018 SMT,2011 MUT,HFT,2009">
+      <input autocomplete="off" id="readSpeed" placeholder="120" value="120">
+      <input autocomplete="off" id="query" placeholder="search for...">
+      <div id="around-categories" class="around-input">
+        <input autocomplete="off" id="categories" placeholder="Science,History">
+        <ul id="under-categories" class="list-group under-input">
+        </ul>
+      </div>
+      <div id="around-subcategories" class="around-input">
+        <input autocomplete="off" id="subcategories" placeholder="Science Physics,History European">
+        <ul id="under-subcategories" class="list-group under-input">
+        </ul>
+      </div>
+      <input autocomplete="off" id="difficulties" placeholder="2,4,6,9">
+      <div id="around-tournaments" class="around-input">
+        <input autocomplete="off" id="tournaments" placeholder="2018 SMT,2011 MUT,HFT,2009">
+        <ul id="under-tournaments" class="list-group under-input">
+        </ul>
+      </div>
       <select id="searchType">
 	<option value="a">Answer</option>
 	<option value="q">Question</option>
@@ -47,7 +60,3 @@
     </div>
   </body>
 </html>
-
-
-
-  
