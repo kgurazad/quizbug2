@@ -199,7 +199,7 @@ app.get '/search', (req, res) ->
         rawCats = rawCats.replace notRegex, ''
     subcatContainsNot = notRegex.test rawSubcats
     if subcatContainsNot
-        rawSubcats = rawSubats.replace notRegex, ''
+        rawSubcats = rawSubcats.replace notRegex, ''
     catSubcatMatchExp = {$or: []} # there has to be a $or
     cats = rawCats.split commaRegex
     if rawCats == ''
