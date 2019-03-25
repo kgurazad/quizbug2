@@ -190,7 +190,7 @@ app.get '/search', (req, res) ->
     
     # now for cats and subcats
     rawCats = req.query.categories || ''
-    rawSubcats = req.quary.subcategories || ''
+    rawSubcats = req.query.subcategories || ''
     # these should both merge into one $or
     catContainsNot = notRegex.test rawCats
     if catContainsNot
