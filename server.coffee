@@ -248,7 +248,7 @@ app.get '/search', (req, res) ->
     searchParams.$and.push catSubcatMatchExp
     searchParams.$and.push diffMatchExp
     searchParams.$and.push tourneyMatchExp
-    console.log searchParams # for good measure D:
+    console.log JSON.stringify searchParams # for good measure D:
 
     model.count(searchParams).read('sp').exec (err, count) ->
       if err?
