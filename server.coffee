@@ -224,13 +224,13 @@ app.get '/search', (req, res) ->
     
     # last but not least, tournament name matching
     rawTourneys = req.query.tournaments || ''
-    tourneysMatchExp = {$or: []}
+    tourneyMatchExp = {$or: []}
     tourneyContainsNot = notRegex.test rawTourneys
     if tourneyContainsNot
         rawTourneys = rawTourneys.replace notRegex, ''
     tourneys = rawTourneys.split commaRegex
     for tourney in rawTourneys
-        tourneysMatchExp.$or.push {'tournament': {$regex: new RegExp(tourney, 'i')}}
+        tourneyMatchExp.$or.push {'tournament': {$regex: new RegExp(tourney, 'i')}}
     if tourneyContainsNot
         tourneyMatchExp = {$not: tourneyMatchExp}
     # break out the chocolate ;)
