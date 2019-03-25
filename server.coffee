@@ -202,12 +202,12 @@ app.get '/search', (req, res) ->
     cats = rawCats.split commaRegex
     subcats = rawSubcats.split commaRegex
     catMatchExp = {'category': {$in: cats}} # the cat component
-    if catMatchExp.$in.length == 0
+    if catMatchExp['category'].$in.length == 0
         catMatchExp = {'category': {$exists: true}}
     if catContainsNot
         catMatchExp = {$not: catMatchExp}
     subcatMatchExp = {'subcategory': {$in: subcats}} # the subcat component
-    if subcatMatchExp.$in.length == 0
+    if subcatMatchExp['subcategory'].$in.length == 0
         subcatMatchExp = {'subcategory': {$exists: true}}
     if subcatContainsNot
         subcatMatchExp = {$not: subcatMatchExp}
@@ -223,7 +223,7 @@ app.get '/search', (req, res) ->
     diffs = rawDiffs.split commaRegex
     for d in diffs
         diffMatchExp['difficulty'].$in.push Number(d)
-    if diffMatchExp.$in.length == 0
+    if diffMatchExp['difficulty'].$in.length == 0
         diffMatchExp = {'difficulty': {$exists: true}}
     if diffContainsNot
         diffMatchExp = {$not: diffMatchExp}
