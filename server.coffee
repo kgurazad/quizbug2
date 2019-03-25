@@ -184,8 +184,10 @@ app.get '/search', (req, res) ->
         # the complex bois
         # matches anything with those words (case-insensitive)
     # whitespace
+    ###
     if queryContainsNot
-        queryMatchExp = {$not: queryMatchExp}
+        queryMatchExp = {$not: queryMatchExp} # this one is broken D:
+    ###
     # congratulations you made it through wooooo
     
     # now for cats and subcats
@@ -209,12 +211,12 @@ app.get '/search', (req, res) ->
     if catMatchExp['category'].$in.length == 0
         catMatchExp = {'category': {$exists: true}}
     if catContainsNot
-        catMatchExp = {$not: catMatchExp}
+        catMatchExp = {'category': {$not: {$in: catMatchExp['category'].$in}}}
     subcatMatchExp = {'subcategory': {$in: subcats}} # the subcat component
     if subcatMatchExp['subcategory'].$in.length == 0
         subcatMatchExp = {'subcategory': {$exists: true}}
     if subcatContainsNot
-        subcatMatchExp = {$not: subcatMatchExp}
+        subcatMatchExp = {'subcategory': {$not: {$in: subcatMatchExp['subcategory'].$in}}}
     catSubcatMatchExp.$or.push catMatchExp
     catSubcatMatchExp.$or.push subcatMatchExp
     
