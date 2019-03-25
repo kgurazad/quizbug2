@@ -200,7 +200,11 @@ app.get '/search', (req, res) ->
         rawSubcats = rawSubats.replace notRegex, ''
     catSubcatMatchExp = {$or: []} # there has to be a $or
     cats = rawCats.split commaRegex
+    if rawCats == ''
+        cats = []
     subcats = rawSubcats.split commaRegex
+    if rawSubcats == ''
+        subcats = []
     catMatchExp = {'category': {$in: cats}} # the cat component
     if catMatchExp['category'].$in.length == 0
         catMatchExp = {'category': {$exists: true}}
@@ -221,6 +225,8 @@ app.get '/search', (req, res) ->
     if diffContainsNot
         rawDiffs = rawDiffs.replace notRegex, ''
     diffs = rawDiffs.split commaRegex
+    if rawDiffs == ''
+        diffs = []
     for d in diffs
         diffMatchExp['difficulty'].$in.push Number(d)
     if diffMatchExp['difficulty'].$in.length == 0
@@ -235,7 +241,9 @@ app.get '/search', (req, res) ->
     if tourneyContainsNot
         rawTourneys = rawTourneys.replace notRegex, ''
     tourneys = rawTourneys.split commaRegex
-    for tourney in rawTourneys
+    if rawTourneys == ''
+        tourneys = []
+    for tourney in tourneys
         tourneyMatchExp.$or.push {'tournament': {$regex: new RegExp(tourney, 'i')}}
     if tourneyMatchExp.$or.length == 0
         tourneyMatchExp = {'tournament': {$exists: true}}
