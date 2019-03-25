@@ -232,7 +232,7 @@ app.get '/search', (req, res) ->
     if diffMatchExp['difficulty'].$in.length == 0
         diffMatchExp = {'difficulty': {$exists: true}}
     if diffContainsNot
-        diffMatchExp = {'difficulty': {$not: diffMatchExp}}
+        diffMatchExp = {'difficulty': {$not: {$in: diffMatchExp['difficulty'].$in}}}
     
     # last but not least, tournament name matching
     rawTourneys = req.query.tournaments || ''
