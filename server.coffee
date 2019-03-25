@@ -202,9 +202,13 @@ app.get '/search', (req, res) ->
     cats = rawCats.split commaRegex
     subcats = rawSubcats.split commaRegex
     catMatchExp = {'category': {$in: cats}} # the cat component
+    if catMatchExp.$in.length == 0
+        catMatchExp = {'category': {$exists: true}}
     if catContainsNot
         catMatchExp = {$not: catMatchExp}
     subcatMatchExp = {'subcategory': {$in: subcats}} # the subcat component
+    if subcatMatchExp.$in.length == 0
+        subcatMatchExp = {'subcategory': {$exists: true}}
     if subcatContainsNot
         subcatMatchExp = {$not: subcatMatchExp}
     catSubcatMatchExp.$or.push catMatchExp
@@ -219,6 +223,8 @@ app.get '/search', (req, res) ->
     diffs = rawDiffs.split commaRegex
     for d in diffs
         diffMatchExp['difficulty'].$in.push Number(d)
+    if diffMatchExp.$in.length == 0
+        diffMatchExp = {'difficulty': {$exists: true}}
     if diffContainsNot
         diffMatchExp = {$not: diffMatchExp}
     
@@ -231,6 +237,8 @@ app.get '/search', (req, res) ->
     tourneys = rawTourneys.split commaRegex
     for tourney in rawTourneys
         tourneyMatchExp.$or.push {'tournament': {$regex: new RegExp(tourney, 'i')}}
+    if tourneyMatchExp.$or.length == 0
+        tourneyMatchExp = {'tournament': {$exists: true}}
     if tourneyContainsNot
         tourneyMatchExp = {$not: tourneyMatchExp}
     # break out the chocolate ;)
