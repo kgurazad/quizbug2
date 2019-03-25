@@ -32,7 +32,7 @@ next = () ->
   questionFinished = false
   question = questions[(questions.indexOf(question) + 1) % questions.length]
   $('#metadata').empty()
-  $('#metadata').append('<li class="breadcrumb-item">'+question.tournament.year+' '+question.tournament.name+'</li>')
+  $('#metadata').append('<li class="breadcrumb-item">'+question.tournament+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">Difficulty Level '+question.difficulty+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">'+question.category+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">'+(question.subcategory || 'No Subcat')+'</li>')

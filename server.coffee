@@ -101,81 +101,146 @@ app.get '/tournaments', (req, res) ->
 
 app.get '/search', (req, res) ->
   try
-    queryString = escapeRegExp((req.query.query || '')) 
-    console.log queryString
-    query = {}
-    categories = split((req.query.categories || ''), /,\s*/)
-    console.log categories
-    subcategories = split((req.query.subcategories || ''), /,\s*/)
-    console.log subcategories
-    difficulties = split((req.query.difficulties || ''), /,\s*/)
-    console.log difficulties
-    tournamentsRaw = split((req.query.tournaments || ''), /,\s*/)
-    console.log tournamentsRaw
-    tournaments = {$or: []} # as it is in the mongodb
+
+    searchParams = {};
+
+    # alright i am rewriting this code 24 mar 2019 because it was a mess
+    # adding matching features for and/or/not, really basic boolean operations
+    # and is denoted with &&, or with ||, not with !!
+    # things to sort by -
+    # query string - does it contain any combination of what is given? also use a/q/qa mods
+    # category/subcategory - match it so that it falls under either (ie use an or clause)
+    # also subject to !! modifiers - || and && not needed
+    # difficulties - again same as cat/subcat, use only !!, otherwise , to separate
+    # add question type later? will need to find a way to read bonuses but seems rewarding ;)
+    # tournament - name contains, again same as usual
+    # &&, || only used for query string
+    
+    # define boolean regexes - not global because will evaluate from left to right
+    # || is separated first then && - for example Giotto || Grant && Wood || Frans && Hals
+    andRegex = /\s*&&\s*/
+    orRegex = /\s*\|\|\s*/
+    notRegex = /^!!/
+    commaRegex = /\s*,/
+
+    # begin parsing query string
+    queryString = req.query.query || '' # lol
     searchType = req.query.searchType
-    console.log searchType
-
-    searchParams = {$and: []}
-
-    for k,v of difficulties
-      difficulties[k] = Number v
-    console.log difficulties
-
-    if tournamentsRaw.length == 0
-      tournaments = {'tournament': {$exists: true}}
-    for tournament in tournamentsRaw
-      tSplit = split tournament, ' '
-      console.log tSplit
-      try
-        year = Number tSplit[0]
-        if !year
-          throw "nan"
-        if tSplit.length == 1
-          tournaments.$or.push {'tournament.year': year, 'tournament.name': {$exists: true} }
+    queryMatchExp = {} # should be self-contained; ie done at the end of this
+    queryContainsNot = notRegex.test queryString
+    if queryContainsNot
+        queryString = queryString.replace notRegex, ''
+    addQueryAnd = (split, field) -> 
+        toReturn = {$and: []};
+        for str in split
+            tmp = {}
+            tmp[field] = {$regex: new RegExp(str, 'i')}
+            toReturn.$and.push tmp
+        toReturn
+    # whitespace
+    addQueryOr = (split, field) ->
+        toReturn = {$or: []}
+        for str in split
+            if andRegex.test str
+                queryStringSplit = str.split andRegex
+                toReturn.$or.push addQueryAnd queryStringSplit, field
+            else
+                tmp = {}
+                tmp[field] = {$regex: new RegExp(str, 'i')}
+                toReturn.$and.push tmp
+            # whitespace
+        toReturn
+    # whitespace
+    if not orRegex.test queryString
+        if andRegex.test queryString
+            queryStringSplit = queryString.split andRegex
+            # oh god oh god why this so hard ;-;
+            if searchType == 'q'
+                queryMatchExp = addQueryAnd queryStringSplit, 'text.question'
+            else if searchType == 'a'
+                queryMatchExp = addQueryAnd queryStringSplit, 'text.answer'
+            else
+                queryMatchExp = {$or: [addQueryAnd(queryStringSplit, 'text.question'), addQueryAnd(queryStringSplit, 'text.answer')]}
+            # queries like Grant && Wood && Gothic
+            # matches anything with those words (case-insensitive)
         else
-          tournaments.$or.push {'tournament.year': year, 'tournament.name': mergeSpaces tSplit.slice 1 }
-      catch e
-        tournaments.$or.push {'tournament.year': {$exists: true}, 'tournament.name': mergeSpaces tSplit }
-
-    if tournamentsRaw.length == 1
-      tournaments = tournaments.$or[0]
-    console.log tournaments
-
-    if searchType == 'qa'
-      query.$or = []
-      query.$or.push {'text.question': {$regex: new RegExp(queryString, 'i')}}
-      query.$or.push {'text.answer': {$regex: new RegExp(queryString, 'i')}}
-    else if searchType == 'q'
-      query = {'text.question': {$regex: new RegExp(queryString, 'i')}}
-    else
-      query = {'text.answer': {$regex: new RegExp(queryString, 'i')}}
-
-    if queryString == ''
-      query = {'text': {$exists: true}}
-    console.log query
-
-    searchParams.$and.push query
-    searchParams.$and.push tournaments
-    searchParams['difficulty'] = {$in: difficulties}
-    if categories.length > 0 and subcategories.length > 0
-      searchParams.$or = [] 
-      searchParams.$or.push {category: {$in: categories}}
-      searchParams.$or.push {subcategory: {$in: subcategories}}
-    else 
-      searchParams['category'] = {$in: categories}
-      searchParams['subcategory'] = {$in: subcategories}
-
-    if difficulties.length == 0
-      delete searchParams['difficulty']
-      
-    if categories.length == 0
-      delete searchParams['category']
-      
-    if subcategories.length == 0
-      delete searchParams['subcategory']
-
-    console.log JSON.stringify searchParams
+            # simple query (yay)
+            if searchType == 'q'
+                queryMatchExp = {'text.question': new RegExp(queryString, 'i')}
+            else if searchType == 'a'
+                queryMatchExp = {'text.answer': new RegExp(queryString, 'i')}
+            else
+                queryMatchExp = {$or: [{'text.question': new RegExp(queryString, 'i')}, {'text.answer': new RegExp(queryString, 'i')}]}
+            # nice and clean :)
+        # now for the hard part oO
+    else # has an or
+        queryStringSplit = queryString.split orRegex
+        if searchType == 'q'
+            queryMatchExp = addQueryOr queryStringSplit, 'text.question'
+        else if searchType == 'a'
+            queryMatchExp = addQueryOr queryStringSplit, 'text.answer'
+        else
+            queryMatchExp = {$or: [addQueryOr(queryStringSplit, 'text.question'), addQueryOr(queryStringSplit, 'text.answer')]}
+        # the complex bois
+        # matches anything with those words (case-insensitive)
+    # whitespace
+    if queryContainsNot
+        queryMatchExp = {$not: queryMatchExp}
+    # congratulations you made it through wooooo
+    
+    # now for cats and subcats
+    rawCats = req.query.categories || ''
+    rawSubcats = req.quary.subcategories || ''
+    # these should both merge into one $or
+    catContainsNot = notRegex.test rawCats
+    if catContainsNot
+        rawCats = rawCats.replace notRegex, ''
+    subcatContainsNot = notRegex.test rawSubcats
+    if subcatContainsNot
+        rawSubcats = rawSubats.replace notRegex, ''
+    catSubcatMatchExp = {$or: []} # there has to be a $or
+    cats = rawCats.split commaRegex
+    subcats = rawSubcats.split commaRegex
+    catMatchExp = {'category': {$in: cats}} # the cat component
+    if catContainsNot
+        catMatchExp = {$not: catMatchExp}
+    subcatMatchExp = {'subcategory': {$in: subcats}} # the subcat component
+    if subcatContainsNot
+        subcatMatchExp = {$not: subcatMatchExp}
+    catSubcatMatchExp.$or.push catMatchExp
+    catSubcatMatchExp.$or.push subcatMatchExp
+    
+    # difficulty time
+    rawDiffs = req.query.difficulties || ''
+    diffMatchExp = {'difficulty': {$in: []}}
+    diffContainsNot = notRegex.test rawDiffs
+    if diffContainsNot
+        rawDiffs = rawDiffs.replace notRegex, ''
+    diffs = rawDiffs.split commaRegex
+    for d in diffs
+        diffMatchExp['difficulty'].$in.push Number(d)
+    if diffContainsNot
+        diffMatchExp = {$not: diffMatchExp}
+    
+    # last but not least, tournament name matching
+    rawTourneys = req.query.tournaments || ''
+    tourneysMatchExp = {$or: []}
+    tourneyContainsNot = notRegex.test rawTourneys
+    if tourneyContainsNot
+        rawTourneys = rawTourneys.replace notRegex, ''
+    tourneys = rawTourneys.split commaRegex
+    for tourney in rawTourneys
+        tourneysMatchExp.$or.push {'tournament': {$regex: new RegExp(tourney, 'i')}}
+    if tourneyContainsNot
+        tourneyMatchExp = {$not: tourneyMatchExp}
+    # break out the chocolate ;)
+    
+    searchParams = {$and: []} # one big $and for all the params    
+    searchParams.$and.push queryMatchExp
+    searchParams.$and.push catSubcatMatchExp
+    searchParams.$and.push diffMatchExp
+    searchParams.$and.push tourneyMatchExp
+    console.log searchParams # for good measure D:
 
     model.count(searchParams).read('sp').exec (err, count) ->
       if err?
@@ -194,7 +259,7 @@ app.get '/search', (req, res) ->
             return
           res.send data
           return
-	# comment
+	# comment <- what is this lol, whitespace drives u mad
       else
         console.log 'regular finding!'
         model.find(searchParams).read('sp').exec (err, data) ->
