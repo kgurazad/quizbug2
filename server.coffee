@@ -205,8 +205,6 @@ app.get '/search', (req, res) ->
     if rawCats == ''
         cats = []
     subcats = rawSubcats.split commaRegex
-    if rawSubcats == ''
-        subcats = []
     catMatchExp = {'category': {$in: cats}} # the cat component
     if catMatchExp['category'].$in.length == 0
         catMatchExp = {'category': {$exists: true}}
@@ -217,8 +215,10 @@ app.get '/search', (req, res) ->
         subcatMatchExp = {'subcategory': {$exists: true}}
     if subcatContainsNot
         subcatMatchExp = {'subcategory': {$not: {$in: subcatMatchExp['subcategory'].$in}}}
-    catSubcatMatchExp.$or.push catMatchExp
-    catSubcatMatchExp.$or.push subcatMatchExp
+    if rawCats != ''
+        catSubcatMatchExp.$or.push catMatchExp
+    if rawSubcats != ''
+        catSubcatMatchExp.$or.push subcatMatchExp
     
     # difficulty time
     rawDiffs = req.query.difficulties || ''
@@ -255,7 +255,8 @@ app.get '/search', (req, res) ->
     
     searchParams = {$and: []} # one big $and for all the params    
     searchParams.$and.push queryMatchExp
-    searchParams.$and.push catSubcatMatchExp
+    if catSubcatMatchExp.$or.length != 0 # no restrictions on any
+        searchParams.$and.push catSubcatMatchExp
     searchParams.$and.push diffMatchExp
     searchParams.$and.push tourneyMatchExp
     console.log JSON.stringify searchParams # for good measure D:
