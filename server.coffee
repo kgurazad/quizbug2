@@ -118,7 +118,7 @@ app.get '/search', (req, res) ->
     
     # define boolean regexes - not global because will evaluate from left to right
     # || is separated first then && - for example Giotto || Grant && Wood || Frans && Hals
-    andRegex = /\s*&&\s*/
+    andRegex = /\s*++\s*/
     orRegex = /\s*\|\|\s*/
     notRegex = /^!!/
     commaRegex = /\s*,/
