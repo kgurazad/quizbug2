@@ -125,6 +125,7 @@ app.get '/search', (req, res) ->
 
     # begin parsing query string
     queryString = req.query.query || '' # lol
+    console.log queryString
     searchType = req.query.searchType
     queryMatchExp = {} # should be self-contained; ie done at the end of this
     queryContainsNot = notRegex.test queryString
