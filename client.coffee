@@ -91,18 +91,15 @@ search = () ->
     searchType: $('#searchType').find(':selected').val().trim()
   }
   url = 'search?'
-  url += 'query='
-  url += searchParameters.query
-  url += '&categories='
-  url += searchParameters.categories
-  url += '&subcategories='
-  url += searchParameters.subcategories
-  url += '&difficulties='
-  url += searchParameters.difficulties
-  url += '&tournaments='
-  url += searchParameters.tournaments
-  url += '&searchType='
-  url += searchParameters.searchType
+  url += $.param([
+    {name: 'query', value: searchParameters.query},
+    {name: 'categories', value: searchParameters.categories},
+    {name: 'subcategories', value: searchParameters.subcategories},
+    {name: 'difficulties', value: searchParameters.difficulties},
+    {name: 'tournaments', value: searchParameters.tournaments},
+    {name: 'searchType', value: searchParameters.searchType}
+  ]); 
+  console.log url
   finish()
   $('#question').text('this may take a while...')
   $('#answer').text('')
