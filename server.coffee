@@ -153,6 +153,7 @@ app.get '/search', (req, res) ->
     # whitespace
     if not orRegex.test queryString
         if andRegex.test queryString
+            console.log 'and query'
             queryStringSplit = queryString.split andRegex
             # oh god oh god why this so hard ;-;
             if searchType == 'q'
@@ -165,6 +166,7 @@ app.get '/search', (req, res) ->
             # matches anything with those words (case-insensitive)
         else
             # simple query (yay)
+            console.log 'simple query'
             if searchType == 'q'
                 queryMatchExp = {'text.question': new RegExp(queryString, 'i')}
             else if searchType == 'a'
@@ -174,6 +176,7 @@ app.get '/search', (req, res) ->
             # nice and clean :)
         # now for the hard part oO
     else # has an or
+        console.log 'or query'
         queryStringSplit = queryString.split orRegex
         if searchType == 'q'
             queryMatchExp = addQueryOr queryStringSplit, 'text.question'
@@ -253,12 +256,15 @@ app.get '/search', (req, res) ->
         tourneyMatchExp = {$not: tourneyMatchExp}
     # break out the chocolate ;)
     
-    searchParams = {$and: []} # one big $and for all the params    
-    searchParams.$and.push queryMatchExp
+    searchParams = {$and: []} # one big $and for all the params  
+    if queryString != ''  
+        searchParams.$and.push queryMatchExp
     if catSubcatMatchExp.$or.length != 0 # no restrictions on any
         searchParams.$and.push catSubcatMatchExp
-    searchParams.$and.push diffMatchExp
-    searchParams.$and.push tourneyMatchExp
+    if rawDiffs != ''
+        searchParams.$and.push diffMatchExp
+    if rawTourneys != ''
+        searchParams.$and.push tourneyMatchExp
     console.log JSON.stringify searchParams # for good measure D:
 
     model.count(searchParams).read('sp').exec (err, count) ->
