@@ -266,6 +266,8 @@ app.get '/search', (req, res) ->
         searchParams.$and.push diffMatchExp
     if rawTourneys != ''
         searchParams.$and.push tourneyMatchExp
+    if searchParams.$and.length == 0
+        searchParams = {}
     console.log JSON.stringify searchParams # for good measure D:
 
     model.count(searchParams).read('sp').exec (err, count) ->
