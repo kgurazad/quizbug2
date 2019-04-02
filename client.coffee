@@ -38,7 +38,6 @@ next = () ->
   $('#metadata').append('<li class="breadcrumb-item">'+(question.subcategory || 'No Subcat')+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">QuizDB ID #'+question.id+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">Question '+(questions.indexOf(question) + 1)+' of '+questions.length+'</li>')
-  questionText = question.text.question.replace(/[bB]/g, '🅱️').split(' ')
   $('#question').text('');
   if buttons
     $('#answer').text('Click the button to buzz.')
@@ -78,7 +77,7 @@ finish = () ->
       $('#question').append(questionText[word] + ' ')
       word++
   word = 0
-  $('#answer').text(question.text.answer.replace(/[bB]/g, '🅱️')) if question?
+  $('#answer').text(question.text.answer) if question?
   return
 
 search = () ->
