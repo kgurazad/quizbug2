@@ -39,6 +39,7 @@ next = () ->
   $('#metadata').append('<li class="breadcrumb-item">QuizDB ID #'+question.id+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">Question '+(questions.indexOf(question) + 1)+' of '+questions.length+'</li>')
   $('#question').text('');
+  questionText = question.text.question.split ' '
   if buttons
     $('#answer').text('Click the button to buzz.')
     $('#b').text('Buzz')
