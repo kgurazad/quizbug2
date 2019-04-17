@@ -3,36 +3,74 @@ html,body {
     height: 100%;
     margin: 1%;
 }
+
 #right {
     width: 24%;
     height: 100%;
     float: right;
 }
+
 #top {
     width: 100%;
     height: 60px;
     float: top;
 }
+
 #main {
     width: 74%;
     height: 100%;
     float: left;
 }
+
+.control-btn {
+  margin-bottom: 2%;
+  width: 19.6%;
+  height: 6rem;
+  margin-right: 0.5%;
+  margin-left: 0%;
+  float: left;
+  border: none;
+}
+
+@media (pointer: fine) {
+  .control-btn {
+    height: 3rem;
+  }
+}
+
+#b {
+  margin-right: 0%;
+}
+
+#buttons {
+  width: 100%;
+  float: top;
+}
+
+#negged {
+  float: right;
+  text-decoration: underline;
+}
+
+#negged:hover {
+  color: #dc3545;
+}
+
 .jumbotron, #answer, #update {
     padding: 1rem;
-    width: auto;
+    width: 100%;
 }
-#b {
-    margin-bottom: 1%;
-}
+
 #p {
     margin-top: 1rem;
 }
+
 #r {
     color: #fff;
     background-color: #5518ab;
     border-color: #5518ab;
 }
+
 .around-input, #readSpeed, #query, #difficulties, #searchType {
   width: 100%;
   margin-bottom: 0.5rem;
@@ -52,3 +90,4 @@ input {
   border-bottom-right-radius: 0.5rem !important;
   margin-bottom: 0.5rem;
 }
+

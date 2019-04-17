@@ -18,19 +18,26 @@
       </h1>
     </div>
     <div id="main">
-      <button class="btn btn-primary btn-block" id="s">Search</button>
-      <button class="btn btn-dark btn-block" id="r">Randomize</button>
-      <button class="btn btn-success btn-block" id="n">Next</button>
-      <button class="btn btn-warning btn-block" id="m">Back</button>
-      <button class="btn btn-danger btn-block" id="b">Buzz/Reveal</button>
-      <nav aria-label="breadcrumb"><ol id="metadata" class="breadcrumb">I contain metadata! (tournament name, difficulty, category, subcategory)</ol></nav>
-      <div id="update" class="alert alert-success">QuizBug 2 has changed! Check out <a href="/update" class=".alert-link">/update</a> for more info, and thanks for using QuizBug 2! <3</div>
+    <div id="buttons">
+      <button class="control-btn btn btn-primary" id="s">Search</button>
+      <button class="control-btn btn btn-dark" id="r">Randomize</button>
+      <button class="control-btn btn btn-warning" id="m">Back</button>
+      <button class="control-btn btn btn-success" id="n">Next</button>
+      <button class="control-btn btn btn-danger" id="b">Buzz/Reveal</button>
+      </div>
+      <nav aria-label="breadcrumb"><ol id="metadata" class="breadcrumb">I contain metadata! (tournament name, difficulty, 
+category, subcategory)</ol></nav>
+      <div id="update" class="alert alert-success">QuizBug 2 has changed! Check out <a href="/update" 
+class=".alert-link">/update</a> for more info, and thanks for using QuizBug 2! &lt;3</div>
       <div id="question" class="jumbotron">Nothing right now!</div>
-      <div id="answer" class="alert alert-info">Answer shows up here!</div>
+      <div id="answer" class="alert alert-info">Answer shows up here!<a id="negged">I was wrong.</a></div>
     </div>
     <div id="right">
-      <p>Questions taken from QuizDB. To adjust search parameters, mess around with the inputs below. Press [s] to search, otherwise same QuizBug keybinds. Info + Help can be found at <a href="/info">/info</a>. Hopefully the text selector thingies are intuitive. Have fun!</p>
-      <p>Made by Karan Gurazada. GitHub @ <a href="https://github.com/kgurazad/quizbug2">https://github.com/kgurazad/quizbug2</a>.</p>
+      <p>Questions taken from QuizDB. To adjust search parameters, mess around with the inputs below. Press [s] to search, 
+otherwise same QuizBug keybinds. Info + Help can be found at <a href="/info">/info</a>. Hopefully the text selector thingies 
+are intuitive. Have fun!</p>
+      <p>Made by Karan Gurazada. GitHub @ <a 
+href="https://github.com/kgurazad/quizbug2">https://github.com/kgurazad/quizbug2</a>.</p>
       <br>
       <input autocomplete="off" id="readSpeed" placeholder="120" value="120">
       <input autocomplete="off" id="query" placeholder="search for...">
