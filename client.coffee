@@ -23,6 +23,7 @@ back = () ->
 
 next = () ->
   finish()
+  $('#negged').hide()
   try
     readSpeed = Number($('#readSpeed').val())
   catch e
@@ -79,6 +80,7 @@ finish = () ->
       word++
   word = 0
   $('#answer').text(question.text.answer) if question?
+  $('#negged').show() if question?
   return
 
 search = () ->
@@ -128,6 +130,7 @@ initMenus = () ->
 $(document).ready () ->
   initMenus()
   $('#buttons').hide()
+  $('#negged').hide()
   $('#searchType').val('a')
   $('#p').click () ->
     $('#buttons').toggle()
