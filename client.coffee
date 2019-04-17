@@ -5,12 +5,12 @@ window.addEventListener 'keydown', (e) ->
     e.preventDefault()
   return
 
+buttons = false
 readSpeed = 120
 currentlyIsBuzzing = false
 questionEnded = false
 questionFinished = false
 questionAnswered = false
-buttons = false
 questions = null
 question = null
 questionText = null
@@ -127,15 +127,11 @@ initMenus = () ->
 
 $(document).ready () ->
   initMenus()
-  $('.btn-block').hide()
+  $('#buttons').hide()
   $('#searchType').val('a')
   $('#p').click () ->
-    if buttons
-      buttons = false
-      $('.btn-block').hide()
-    else
-      buttons = true
-      $('.btn-block').show()
+    $('#buttons').toggle()
+    buttons = !buttons
     return
   $('#s').click () ->
     search()
