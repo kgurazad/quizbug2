@@ -56,7 +56,7 @@ html,body {
   color: #dc3545;
 }
 
-.jumbotron, #answer, #update {
+.jumbotron, #answer-div, #update {
     padding: 1rem;
     width: 100%;
 }
