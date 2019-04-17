@@ -102,7 +102,7 @@ search = () ->
   console.log url
   finish()
   $('#question').text('this may take a while...')
-  $('#answer').text('')
+  $('#answer').text('maybe I could advertise here... >:)') # $('#answer').hide()
   $.getJSON url, (res) ->
     questions = res
     if questions.length == 0
