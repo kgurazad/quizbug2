@@ -77,6 +77,10 @@ app.get '/style.css', (req, res) ->
   res.sendFile __dirname+'/style.css'
   return
 
+app.get '/dark-style.css', (req, res) ->
+  res.sendFile __dirname+'/dark-style.css'
+  return
+
 app.get '/viselect.js', (req, res) ->
   res.sendFile __dirname+'/viselect.js'
   return
