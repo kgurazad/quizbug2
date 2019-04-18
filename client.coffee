@@ -136,11 +136,11 @@ $(document).ready () ->
   $('#style-toggle').click () ->
     if dark
       $('#style-toggle').text 'Light Mode'
-      $('head').append '<link id="dark-mode-link" rel="stylesheet" href="https://quizbug2.herokuapp.com/dark-style.css>'
+      $('head').append '<link id="dark-mode-link" rel="stylesheet" href="https://quizbug2.herokuapp.com/dark-style.css">'
       $('#light-mode-link').remove()
     else
       $('#style-toggle').text 'Dark Mode'
-      $('head').append '<link id="light-mode-link" rel="stylesheet" href="https://quizbug2.herokuapp.com/style.css>'
+      $('head').append '<link id="light-mode-link" rel="stylesheet" href="https://quizbug2.herokuapp.com/style.css">'
       $('#dark-mode-link').remove()
     dark = !dark
     return
