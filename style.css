@@ -61,8 +61,21 @@ html,body {
     width: 100%;
 }
 
+#p, #style-toggle {
+  margin-top: 1rem;
+  height: 3rem;
+  width: 48.5%;
+  margin-left: 0%;
+  margin-right: 0%;
+  border: none;
+  float: left;
+  background-color: #2c2f33;
+}
+
 #p {
-    margin-top: 1rem;
+  margin-right: 3%;
+  color: #fff;
+  background-color: buttonface;
 }
 
 #r {
