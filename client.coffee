@@ -6,6 +6,7 @@ window.addEventListener 'keydown', (e) ->
   return
 
 buttons = false
+dark = false
 readSpeed = 120
 currentlyIsBuzzing = false
 questionEnded = false
@@ -132,6 +133,17 @@ $(document).ready () ->
   $('#buttons').hide()
   $('#negged').hide()
   $('#searchType').val('a')
+  #('#style-toggle').click () ->
+    if dark
+      $('#style-toggle').text 'Light Mode'
+      $('head').append '<link id="dark-mode-link" rel="stylesheet" href="https://quizbug2.herokuapp.com/dark-style.css>'
+      $('#light-mode-link').remove()
+    else
+      $('#style-toggle').text 'Dark Mode'
+      $('head').append '<link id="light-mode-link" rel="stylesheet" href="https://quizbug2.herokuapp.com/style.css>'
+      $('#dark-mode-link').remove()
+    dark = !dark
+    return
   $('#p').click () ->
     $('#buttons').toggle()
     buttons = !buttons
