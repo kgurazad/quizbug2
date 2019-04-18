@@ -133,7 +133,7 @@ $(document).ready () ->
   $('#buttons').hide()
   $('#negged').hide()
   $('#searchType').val('a')
-  #('#style-toggle').click () ->
+  $('#style-toggle').click () ->
     if dark
       $('#style-toggle').text 'Light Mode'
       $('head').append '<link id="dark-mode-link" rel="stylesheet" href="https://quizbug2.herokuapp.com/dark-style.css>'
