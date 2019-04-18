@@ -70,11 +70,12 @@ html,body {
   border: none;
   float: left;
   background-color: #2c2f33;
+  color: #fff;
 }
 
 #p {
   margin-right: 3%;
-  color: #fff;
+  color: buttontext;
   background-color: buttonface;
 }
 
