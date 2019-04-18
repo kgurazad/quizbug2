@@ -22,6 +22,7 @@
   "homepage": "https://github.com/kgurazada/quizbug2#readme",
   "dependencies": {
     "ajv": "^6.5.2",
+    "coffee": "^5.2.1",
     "coffeescript": "^2.3.1",
     "express": "^4.16.3",
     "mongoose": "^5.2.6",
