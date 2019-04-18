@@ -74,6 +74,7 @@ randomize = () ->
 finish = () ->
   questionEnded = true
   questionFinished = true
+  currentlyIsBuzzing = false
   window.clearInterval(readInterval)
   if questionText?
     while word < questionText.length
