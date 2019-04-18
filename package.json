@@ -23,7 +23,7 @@
   "dependencies": {
     "ajv": "^6.5.2",
     "coffee": "^5.2.1",
-    "coffeescript": "^2.3.1",
+    "coffeescript": "^2.4.1",
     "express": "^4.16.3",
     "mongoose": "^5.2.6",
     "request": "^2.87.0"
