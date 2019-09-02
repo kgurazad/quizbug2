@@ -16,6 +16,7 @@ questions = null
 question = null
 questionText = null
 readInterval = null
+session = null
 word = 0
 
 back = () ->
@@ -81,9 +82,14 @@ finish = () ->
       $('#question').append(questionText[word] + ' ')
       word++
   word = 0
-  $('#answer').text(question.text.answer) if question?
-  $('#negged').show() if question?
+  if question?
+    console.log question
+    $('#answer').text(question.text.answer)
+    $('#negged').show()
   return
+
+neg = () ->
+  
 
 search = () ->
   searchParameters = {
@@ -106,7 +112,7 @@ search = () ->
   console.log url
   finish()
   $('#question').text('this may take a while...')
-  $('#answer').text('good luck to everyone cramming last minute for nsc! :p') # $('#answer').hide() or 'maybe I could advertise here... >:)'
+  $('#answer').text('maybe i could advertise here >:)') # $('#answer').hide()?
   $.getJSON url, (res) ->
     questions = res
     if questions.length == 0
@@ -190,5 +196,7 @@ $(document).ready () ->
       search()
     else if event.which == 82
       randomize()
+    else if event.which == 189
+      neg()
     return
   return
