@@ -84,7 +84,7 @@ finish = () ->
       word++
     #m
   word = 0
-  if question?
+  if question
     $('#answer').text(question.text.answer)
     $('#negged').show()
     questionText = $('#question').html()
@@ -100,7 +100,7 @@ finish = () ->
   return
 
 neg = () ->
-  if not question?
+  if not question
     return
   if not questionFinished
     return
