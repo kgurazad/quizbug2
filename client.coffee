@@ -91,9 +91,9 @@ finish = () ->
     if questionText.indexOf('(#)') == -1
       question.fate = '0'
     else if questionText.indexOf('(#)') < questionText.indexOf('(*)')
-      question.fate = '15'
+      question.fate = 'power'
     else
-      question.fate = '10'  
+      question.fate = 'get'  
     session.tuh++
     session[question.fate]++
     Cookies.set 'session', JSON.stringify(session)
@@ -107,9 +107,9 @@ neg = () ->
   session[question.fate]--
   questionText = $('#question').html()
   if questionText.indexOf('(#)') < questionText.indexOf('(end)')
-    question.fate = '0'
+    question.fate = 'dead'
   else
-    question.fate = '-5'
+    question.fate = 'neg'
   session[question.fate]++
   Cookies.set 'session', JSON.stringify(session)
   return
@@ -163,7 +163,7 @@ $(document).ready () ->
   $('#buttons').hide()
   $('#negged').hide()
   $('#searchType').val('a')
-  session = JSON.parse(Cookies.get('session') || JSON.stringify({"15": 0, "10": 0, "-5": 0, "0": 0, "tuh": 0}))
+  session = JSON.parse(Cookies.get('session') || JSON.stringify({"power": 0, "get": 0, "neg": 0, "dead": 0, "tuh": 0}))
   $('#style-toggle').click () ->
     if dark
       $('#style-toggle').text 'Light Mode'
