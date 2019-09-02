@@ -24,7 +24,8 @@ back = () ->
   next()
 
 next = () ->
-  finish()
+  if not questionFinished
+    finish()
   $('#negged').hide()
   try
     readSpeed = Number($('#readSpeed').val())
@@ -89,7 +90,7 @@ finish = () ->
   return
 
 neg = () ->
-  
+  return
 
 search = () ->
   searchParameters = {
