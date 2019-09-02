@@ -26,7 +26,6 @@ back = () ->
 next = () ->
   if not questionFinished
     finish()
-  console.log question
   $('#negged').hide()
   try
     readSpeed = Number($('#readSpeed').val())
@@ -83,6 +82,7 @@ finish = () ->
     while word < questionText.length
       $('#question').append(questionText[word] + ' ')
       word++
+    #m
   word = 0
   if question?
     $('#answer').text(question.text.answer)
@@ -94,7 +94,9 @@ finish = () ->
       question.fate = '15'
     else
       question.fate = '10'
-    
+    # m  
+  session.tuh++
+  session[question.fate]++
   return
 
 neg = () ->
@@ -102,12 +104,13 @@ neg = () ->
     return
   if not questionFinished
     return
+  session[question.fate]--
   questionText = $('#question').html()
   if questionText.indexOf('(#)') < questionText.indexOf('(end)')
     question.fate = '0'
   else
     question.fate = '-5'
-
+  session[question.fate]++
   return
 
 search = () ->
