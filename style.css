@@ -53,7 +53,8 @@ html,body {
 }
 
 #negged:hover {
-  color: #dc3545;
+  color: #dc143c;
+  cursor: grab;
 }
 
 .jumbotron, #answer-div, #update {
