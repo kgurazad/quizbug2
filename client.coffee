@@ -214,6 +214,10 @@ $(document).ready () ->
   $('#negged').click () ->
     neg()
     return
+  $('#clear-session').click () ->
+    session = {"power": 0, "get": 0, "neg": 0, "dead": 0, "tuh": 0}
+    Cookies.set 'session', JSON.stringify(session)
+    displaySession()
   document.addEventListener "keyup", (event) ->
     if document.activeElement.tagName != 'BODY'
       return
