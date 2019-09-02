@@ -97,6 +97,7 @@ finish = () ->
     # m  
   session.tuh++
   session[question.fate]++
+  Cookies.set 'session', JSON.stringify(session)
   return
 
 neg = () ->
@@ -111,6 +112,7 @@ neg = () ->
   else
     question.fate = '-5'
   session[question.fate]++
+  Cookies.set 'session', JSON.stringify(session)
   return
 
 search = () ->
@@ -162,6 +164,7 @@ $(document).ready () ->
   $('#buttons').hide()
   $('#negged').hide()
   $('#searchType').val('a')
+  session = JSON.parse(Cookies.get('session')) || {}
   $('#style-toggle').click () ->
     if dark
       $('#style-toggle').text 'Light Mode'
