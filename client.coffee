@@ -26,6 +26,7 @@ back = () ->
 next = () ->
   if not questionFinished
     finish()
+  console.log question
   $('#negged').hide()
   try
     readSpeed = Number($('#readSpeed').val())
