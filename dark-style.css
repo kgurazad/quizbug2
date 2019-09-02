@@ -82,6 +82,10 @@ input, select {
   cursor: grab;
 }
 
+#clear-session:hover {
+  cursor: grab;
+}
+
 .jumbotron, #answer-div, #update {
   padding: 1rem;
   width: 100%;
