@@ -104,6 +104,7 @@ finish = () ->
     session.tuh++
     session[question.fate]++
     Cookies.set 'session', JSON.stringify(session)
+    displaySession())
   return
 
 neg = () ->
@@ -119,6 +120,7 @@ neg = () ->
     question.fate = 'neg'
   session[question.fate]++
   Cookies.set 'session', JSON.stringify(session)
+  displaySession();
   return
 
 search = () ->
