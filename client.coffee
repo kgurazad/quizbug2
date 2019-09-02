@@ -164,7 +164,7 @@ $(document).ready () ->
   $('#buttons').hide()
   $('#negged').hide()
   $('#searchType').val('a')
-  session = JSON.parse(Cookies.get('session')) || {}
+  session = JSON.parse(Cookies.get('session') || '{}')
   $('#style-toggle').click () ->
     if dark
       $('#style-toggle').text 'Light Mode'
