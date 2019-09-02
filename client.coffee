@@ -19,6 +19,13 @@ readInterval = null
 session = null
 word = 0
 
+displaySession = () ->
+  $('#powers').html(session.power)
+  $('#gets').html(session.get)
+  $('#negs').html(session.neg)
+  $('#tuh').html(session.tuh)
+  return
+
 back = () ->
   question = questions[(questions.indexOf(question) - 2 + questions.length) % questions.length]
   next()
@@ -164,6 +171,7 @@ $(document).ready () ->
   $('#negged').hide()
   $('#searchType').val('a')
   session = JSON.parse(Cookies.get('session') || JSON.stringify({"power": 0, "get": 0, "neg": 0, "dead": 0, "tuh": 0}))
+  displaySession()
   $('#style-toggle').click () ->
     if dark
       $('#style-toggle').text 'Light Mode'
