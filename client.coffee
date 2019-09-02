@@ -93,11 +93,10 @@ finish = () ->
     else if questionText.indexOf('(#)') < questionText.indexOf('(*)')
       question.fate = '15'
     else
-      question.fate = '10'
-    # m  
-  session.tuh++
-  session[question.fate]++
-  Cookies.set 'session', JSON.stringify(session)
+      question.fate = '10'  
+    session.tuh++
+    session[question.fate]++
+    Cookies.set 'session', JSON.stringify(session)
   return
 
 neg = () ->
