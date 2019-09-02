@@ -84,12 +84,29 @@ finish = () ->
       word++
   word = 0
   if question?
-    console.log question
     $('#answer').text(question.text.answer)
     $('#negged').show()
+    questionText = $('#question').html()
+    if questionText.indexOf('(#)') == -1
+      question.fate = '0'
+    else if questionText.indexOf('(#)') < questionText.indexOf('(*)')
+      question.fate = '15'
+    else
+      question.fate = '10'
+    
   return
 
 neg = () ->
+  if not question?
+    return
+  if not questionFinished
+    return
+  questionText = $('#question').html()
+  if questionText.indexOf('(#)') < questionText.indexOf('(end)')
+    question.fate = '0'
+  else
+    question.fate = '-5'
+
   return
 
 search = () ->
@@ -177,6 +194,9 @@ $(document).ready () ->
       $('#answer').text('Click again to reveal.')
       $('#b').text('Reveal')
       currentlyIsBuzzing = true
+    return
+  $('#negged').click () ->
+    neg()
     return
   document.addEventListener "keyup", (event) ->
     if document.activeElement.tagName != 'BODY'
