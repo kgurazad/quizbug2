@@ -130,8 +130,8 @@ search = () ->
     subcategories: $('#subcategories').val().trim(),
     difficulties: $('#difficulties').val().trim(),
     tournaments: $('#tournaments').val().trim(),
-    searchType: $('#searchType').find(':selected').val().trim(),
-    powerAllowed: $('#powerAllowed').find(':selected').val().trim()
+    searchType: $('#searchType').find(':selected').val().trim()
+    # powerAllowed: $('#powerAllowed').find(':selected').val().trim()
   }
   url = 'search?'
   url += $.param([
