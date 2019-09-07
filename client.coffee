@@ -114,10 +114,10 @@ neg = () ->
     return
   session[question.fate]--
   questionText = $('#question').html()
-  if questionText.indexOf('(#)') < questionText.indexOf('(end)')
-    question.fate = 'dead'
-  else
+  if questionText.indexOf('(end)') == -1
     question.fate = 'neg'
+  else
+    question.fate = 'dead'
   session[question.fate]++
   Cookies.set 'session', JSON.stringify(session)
   displaySession()
@@ -130,7 +130,8 @@ search = () ->
     subcategories: $('#subcategories').val().trim(),
     difficulties: $('#difficulties').val().trim(),
     tournaments: $('#tournaments').val().trim(),
-    searchType: $('#searchType').find(':selected').val().trim()
+    searchType: $('#searchType').find(':selected').val().trim(),
+    powerAllowed: $('#powerAllowed').find(':selected').val().trim()
   }
   url = 'search?'
   url += $.param([
@@ -140,6 +141,7 @@ search = () ->
     {name: 'difficulties', value: searchParameters.difficulties},
     {name: 'tournaments', value: searchParameters.tournaments},
     {name: 'searchType', value: searchParameters.searchType}
+    # {name: 'powerAllowed', value: searchParameters.powerAllowed}
   ]); 
   console.log url
   finish()
@@ -172,6 +174,7 @@ $(document).ready () ->
   $('#buttons').hide()
   $('#negged').hide()
   $('#searchType').val('a')
+  # $('#powerAllowed').val('b')
   session = JSON.parse(Cookies.get('session') || JSON.stringify({"power": 0, "get": 0, "neg": 0, "dead": 0, "tuh": 0}))
   displaySession()
   $('#style-toggle').click () ->
