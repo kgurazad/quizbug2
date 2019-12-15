@@ -8,6 +8,14 @@
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <script src="https://quizbug2.herokuapp.com/viselect.js"></script>
     <script src="https://quizbug2.herokuapp.com/client.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-140468719-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-140468719-1');
+    </script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link id="light-style-link" rel="stylesheet" href="https://quizbug2.herokuapp.com/style.css">
     <link rel="shortcut icon" type="image/x-icon" href="https://quizbug2.herokuapp.com/favicon.ico"/>
@@ -63,10 +71,17 @@ are intuitive. Have fun!</p>
         </ul>
       </div>
       <select id="searchType">
-	<option value="a">Answer</option>
-	<option value="q">Question</option>
-	<option value="qa">Question + Answer</option>
+	    <option value="a">Answer</option>
+	    <option value="q">Question</option>
+	    <option value="qa">Question + Answer</option>
       </select>
+      <!--
+      <select id="powerAllowed">
+        <option value="b">Powermarked and Non-Powermarked</option>
+        <option value="p">Powermarked Only</option>
+        <option value="n">Non-Powermarked Only</option>
+      </select>
+      -->
       <br>
       <button id="p" class="btn">Buttons</button>
       <button id="style-toggle" class="btn">Dark Mode</button>
