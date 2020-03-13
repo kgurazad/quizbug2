@@ -41,7 +41,6 @@
       QuizBug 2 uses the right-side area's 6 inputs and selector to define search filters.
     </p>
     <p>
-      NOTE: DO NOT USES SPACES AFTER YOUR COMMAS. "2017,2018" IS RIGHT. "2017, 2018" WILL NOT PERFORM THE SEARCH YOU INTENDED.
     <ul>
       <li>
 	Input #1 controls the read speed - that number is the number of milliseconds between questions.
@@ -55,6 +54,8 @@
       </li>
       <li>
 	Input #4 is much like #3 and controls the selected subcategories.
+	If you want questions from a subcategory, do not include the category that subcat is part of in the category list!
+	QuizBug 2 matches questions that are part of either the supplied cats or the supplied subcats, so someone who searches for "Science" and "Science Biology" will get questions in all the sciences.
       </li>
       <li>
 	Input #5 controls the selected difficulty levels. The question database supports 9 difficulty levels:
