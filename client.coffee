@@ -181,14 +181,14 @@ $(document).ready () ->
   $('#style-toggle').click () ->
     if dark
       $('#style-toggle').text 'Light Mode'
-      $('link[rel="stylesheet"]').attr 'href', '/dark-style.css'
+      $('#quizbug-style').attr 'href', '/dark-style.css'
       ###
       $('head').append '<link id="dark-mode-link" rel="stylesheet" href="/dark-style.css">'
       $('#light-mode-link').remove()
       ###
     else
       $('#style-toggle').text 'Dark Mode'
-      $('link[rel="stylesheet"]').attr 'href', '/style.css'
+      $('#quizbug-style').attr 'href', '/style.css'
       ###
       $('head').append '<link id="light-mode-link" rel="stylesheet" href="/style.css">'
       $('#dark-mode-link').remove()
