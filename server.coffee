@@ -34,8 +34,10 @@ mergeSpaces = (arr) ->
     res += str
   return res.slice 1
 
+###
 escapeRegExp = (str) ->
   str.replace /[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&'
+###
 
 app.use (err, req, res, next) ->
   res.status(404).send 'NEG 5 - Page Not Found (404)'
@@ -57,9 +59,11 @@ app.get '/info', (req, res) ->
   res.sendFile __dirname+'/info.html'
   return
 
+###
 app.get '/update', (req, res) ->
   res.sendFile __dirname+'/update.html'
   return
+###
 
 app.get '/teapot', (req, res) ->
   res.sendStatus 418
@@ -119,6 +123,8 @@ app.get '/search', (req, res) ->
     # add question type later? will need to find a way to read bonuses but seems rewarding ;)
     # tournament - name contains, again same as usual
     # &&, || only used for query string
+    
+    # oh shit i actually did this lmao [sep 2019]
     
     # define boolean regexes - not global because will evaluate from left to right
     # || is separated first then && - for example Giotto || Grant && Wood || Frans && Hals

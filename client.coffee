@@ -20,10 +20,10 @@ session = null
 word = 0
 
 displaySession = () ->
-  $('#powers').html(session.power)
-  $('#gets').html(session.get)
-  $('#negs').html(session.neg)
-  $('#tuh').html(session.tuh)
+  $('#powers').text(session.power)
+  $('#gets').text(session.get)
+  $('#negs').text(session.neg)
+  $('#tuh').text(session.tuh)
   return
 
 back = () ->
@@ -41,14 +41,15 @@ next = () ->
     readSpeed = 120    
   questionEnded = false
   questionFinished = false
-  question = questions[(questions.indexOf(question) + 1) % questions.length]
+  nextQuestionIndex = questions.indexOf(question) + 1
+  question = questions[nextQuestionIndex % questions.length]
   $('#metadata').empty()
   $('#metadata').append('<li class="breadcrumb-item">'+question.tournament+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">Difficulty Level '+question.difficulty+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">'+question.category+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">'+(question.subcategory || 'No Subcat')+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">QuizDB ID #'+question.id+'</li>')
-  $('#metadata').append('<li class="breadcrumb-item">Question '+(questions.indexOf(question) + 1)+' of '+questions.length+'</li>')
+  $('#metadata').append('<li class="breadcrumb-item">Question '+ nextQuestionIndex +' of '+questions.length+'</li>')
   $('#question').text('');
   questionText = question.text.question.split ' '
   if buttons
@@ -94,7 +95,7 @@ finish = () ->
   if question
     $('#answer').text(question.text.answer)
     $('#negged').show()
-    questionText = $('#question').html()
+    questionText = $('#question').text()
     if questionText.indexOf('(#)') == -1
       question.fate = '0'
     else if questionText.indexOf('(#)') < questionText.indexOf('(*)')
@@ -113,7 +114,7 @@ neg = () ->
   if not questionFinished
     return
   session[question.fate]--
-  questionText = $('#question').html()
+  questionText = $('#question').text()
   if questionText.indexOf('(end)') == -1
     question.fate = 'neg'
   else
@@ -180,12 +181,18 @@ $(document).ready () ->
   $('#style-toggle').click () ->
     if dark
       $('#style-toggle').text 'Light Mode'
-      $('head').append '<link id="dark-mode-link" rel="stylesheet" href="https://quizbug2.herokuapp.com/dark-style.css">'
+      $('link[rel="stylesheet"]').attr 'href', '/dark-style.css'
+      ###
+      $('head').append '<link id="dark-mode-link" rel="stylesheet" href="/dark-style.css">'
       $('#light-mode-link').remove()
+      ###
     else
       $('#style-toggle').text 'Dark Mode'
-      $('head').append '<link id="light-mode-link" rel="stylesheet" href="https://quizbug2.herokuapp.com/style.css">'
+      $('link[rel="stylesheet"]').attr 'href', '/style.css'
+      ###
+      $('head').append '<link id="light-mode-link" rel="stylesheet" href="/style.css">'
       $('#dark-mode-link').remove()
+      ###
     dark = !dark
     return
   $('#p').click () ->
