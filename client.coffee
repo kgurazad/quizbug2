@@ -49,7 +49,7 @@ next = () ->
   $('#metadata').append('<li class="breadcrumb-item">'+question.category+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">'+(question.subcategory || 'No Subcat')+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">QuizDB ID #'+question.id+'</li>')
-  $('#metadata').append('<li class="breadcrumb-item">Question '+ nextQuestionIndex +' of '+questions.length+'</li>')
+  $('#metadata').append('<li class="breadcrumb-item">Question '+nextQuestionIndex+' of '+questions.length+'</li>')
   $('#question').text('');
   questionText = question.text.question.split ' '
   if buttons
