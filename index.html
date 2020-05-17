@@ -36,15 +36,20 @@
       </div>
       <!--<div id="update" class="alert alert-success">QuizBug 2 has changed! Check out <a href="/update" 
 class="alert-link">/update</a> for more info, and thanks for using QuizBug 2! &lt;3</div>-->
-      <nav aria-label="breadcrumb"><ol id="metadata" class="breadcrumb">I contain metadata! (tournament name, difficulty, 
-category, subcategory)</ol></nav>
-      <div id="question" class="jumbotron">Nothing right now!</div>
-      <div id="answer-div" class="alert alert-info"><span id="answer">Answer shows up here!</span><a id="negged">I was 
+      <nav aria-label="breadcrumb"><ol id="metadata" class="breadcrumb">
+          <li class="breadcrumb-item">Tournament</li>
+          <li class="breadcrumb-item">Difficulty</li>
+          <li class="breadcrumb-item">Category</li>
+          <li class="breadcrumb-item">Subcategory</li>
+          <li class="breadcrumb-item">QuizDB ID</li>
+          <li class="breadcrumb-item">Question Number</li>
+      </ol></nav>
+      <div id="question" class="jumbotron">Search for questions to get started!</div>
+      <div id="answer-div" class="alert alert-info"><span id="answer"></span><a id="negged">I was 
 wrong.</a></div>
     </div>
     <div id="right">
-      <p>Questions taken from QuizDB. To adjust search parameters, mess around with the inputs below. Press [s] to search, 
-otherwise same QuizBug keybinds. Info + Help can be found at <a href="/info">/info</a>. Hopefully the text selector thingies 
+      <p>Questions taken from QuizDB. To adjust search parameters, mess around with the inputs below. Press <pre><code>[s]</code></pre> to search and <pre><code>[space]</code></pre> to buzz. Info + Help can be found at <a href="/info">/info</a>. Hopefully the text selector thingies 
 are intuitive. Have fun!</p>
       <p>Made by Karan Gurazada. GitHub @ <a href="https://github.com/kgurazad/quizbug2">https://github.com/kgurazad/quizbug2</a>.</p>
       <p>
@@ -55,18 +60,18 @@ are intuitive. Have fun!</p>
       <input autocomplete="off" id="readSpeed" placeholder="120" value="120">
       <input autocomplete="off" id="query" placeholder="search for...">
       <div id="around-categories" class="around-input">
-        <input autocomplete="off" id="categories" placeholder="Science,History">
+        <input autocomplete="off" id="categories" placeholder="Categories">
         <ul id="under-categories" class="list-group under-input">
         </ul>
       </div>
       <div id="around-subcategories" class="around-input">
-        <input autocomplete="off" id="subcategories" placeholder="Science Physics,History European">
+        <input autocomplete="off" id="subcategories" placeholder="Subcategories">
         <ul id="under-subcategories" class="list-group under-input">
         </ul>
       </div>
-      <input autocomplete="off" id="difficulties" placeholder="2,4,6,9">
+      <input autocomplete="off" id="difficulties" placeholder="Levels 1-9">
       <div id="around-tournaments" class="around-input">
-        <input autocomplete="off" id="tournaments" placeholder="2018 SMT,2011 MUT,HFT,2009">
+        <input autocomplete="off" id="tournaments" placeholder="Tournaments">
         <ul id="under-tournaments" class="list-group under-input">
         </ul>
       </div>
