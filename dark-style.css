@@ -5,7 +5,7 @@ html,body {
   background-color: #23272a;
 }
 
-h1, p {
+h1, p, span.input {
   color: #fff;
 }
 
@@ -133,4 +133,3 @@ input, select {
   border-bottom-right-radius: 0.5rem !important;
   margin-bottom: 0.5rem;
 }
-
