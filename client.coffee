@@ -41,8 +41,8 @@ next = () ->
     readSpeed = 120    
   questionEnded = false
   questionFinished = false
-  nextQuestionIndex = questions.indexOf(question) + 1
-  question = questions[nextQuestionIndex % questions.length]
+  nextQuestionIndex = (questions.indexOf(question) + 1) % questions.length
+  question = questions[nextQuestionIndex]
   $('#metadata').empty()
   $('#metadata').append('<li class="breadcrumb-item">'+question.tournament+'</li>')
   $('#metadata').append('<li class="breadcrumb-item">Difficulty Level '+question.difficulty+'</li>')
