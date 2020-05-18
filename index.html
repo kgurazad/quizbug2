@@ -57,7 +57,13 @@ wrong.</a></div>
         <a id="clear-session">Clear Current Session</a>
       </p>
       <input autocomplete="off" id="readSpeed" placeholder="120" value="120">
-      <input autocomplete="off" id="query" placeholder="search for...">
+      <input autocomplete="off" id="query" placeholder="Search for words/phrases...">
+      <span>Search within the:</span>
+      <select id="searchType">
+        <option value="a">Answer Only</option>
+        <option value="q">Question Only</option>
+        <option value="qa">Question + Answer</option>
+      </select>
       <div id="around-categories" class="around-input">
         <input autocomplete="off" id="categories" placeholder="Categories">
         <ul id="under-categories" class="list-group under-input">
@@ -74,11 +80,6 @@ wrong.</a></div>
         <ul id="under-tournaments" class="list-group under-input">
         </ul>
       </div>
-      <select id="searchType">
-	    <option value="a">Answer</option>
-	    <option value="q">Question</option>
-	    <option value="qa">Question + Answer</option>
-      </select>
       <!--
       <select id="powerAllowed">
         <option value="b">Powermarked and Non-Powermarked</option>
