@@ -15,7 +15,7 @@ schema = mongoose.Schema({
     category: String,
     subcategory: String
 })
-model = mongoose.model('qs',schema,'raw-quizdb-clean')
+model = mongoose.model('qs', schema, 'raw-quizdb')
 metascheme = mongoose.Schema({
     name: String,
     values: [String]
