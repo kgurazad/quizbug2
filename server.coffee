@@ -105,7 +105,7 @@ app.get '/viselect.js', (req, res) ->
   return
 
 app.get '/categories', (req, res) ->
-  catmodel.findAll().read('sp').exec (err, docs) ->
+  catmodel.find().read('sp').exec (err, docs) ->
     meta = []
     for doc in docs
         meta.push doc.name
@@ -114,7 +114,7 @@ app.get '/categories', (req, res) ->
   return
 
 app.get '/subcategories', (req, res) ->
-  subcatmodel.findAll().read('sp').exec (err, docs) ->
+  subcatmodel.find().read('sp').exec (err, docs) ->
     meta = []
     for doc in docs
         meta.push doc.name
@@ -123,7 +123,7 @@ app.get '/subcategories', (req, res) ->
   return
 
 app.get '/tournaments', (req, res) ->
-  tourneymodel.findAll().read('sp').exec (err, docs) ->
+  tourneymodel.find().read('sp').exec (err, docs) ->
     meta = []
     for doc in docs
         meta.push doc.name
