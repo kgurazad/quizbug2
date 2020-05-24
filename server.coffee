@@ -16,11 +16,26 @@ schema = mongoose.Schema({
     subcategory: String
 })
 model = mongoose.model('qs', schema, 'raw-quizdb')
-metascheme = mongoose.Schema({
-    name: String,
-    values: [String]
+
+catscheme = mongoose.Schema({
+    id: Number,
+    name: String
 })
-metamodel = mongoose.model('meta', metascheme, 'meta')
+catmodel = mongoose.model('cat', catscheme, 'categories')
+
+subcatscheme = mongoose.Schema({
+    id: Number,
+    category: String,
+    name: String
+})
+subcatmodel = mongoose.model('subcat', subcatscheme, 'subcats')
+
+tourneyscheme = mongoose.Schema({
+    id: Number,
+    name: String,
+    difficulty: Number
+})
+tourneymodel = mongoose.model('tourney', tourneyscheme, 'tournaments')
 
 split = (str, separator) ->  
   if str.length == 0
@@ -90,20 +105,29 @@ app.get '/viselect.js', (req, res) ->
   return
 
 app.get '/categories', (req, res) ->
-  metamodel.findOne({name: 'categories'}).read('sp').exec (err, meta) ->
-    res.send meta.values
+  catmodel.findAll().read('sp').exec (err, docs) ->
+    meta = []
+    for doc in docs
+        meta.push doc.name
+    res.send meta
     return
   return
 
 app.get '/subcategories', (req, res) ->
-  metamodel.findOne({name: 'subcategories'}).read('sp').exec (err, meta) ->
-    res.send meta.values
+  subcatmodel.findAll().read('sp').exec (err, docs) ->
+    meta = []
+    for doc in docs
+        meta.push doc.name
+    res.send meta
     return
   return
 
 app.get '/tournaments', (req, res) ->
-  metamodel.findOne({name: 'tournaments'}).read('sp').exec (err, meta) ->
-    res.send meta.values
+  tourneymodel.findAll().read('sp').exec (err, docs) ->
+    meta = []
+    for doc in docs
+        meta.push doc.name
+    res.send meta
     return
   return
 
