@@ -6,8 +6,8 @@ app = express()
 app.use express.json()
 app.use express.urlencoded()
 db_url = process.env.DB || String fs.readFileSync __dirname + '/db.url'
-console.log db_url
-mongoose.connect process.env.DB
+# console.log db_url
+mongoose.connect db_url
 
 port = process.env.PORT || 2020
 
@@ -307,6 +307,7 @@ app.get '/search', (req, res) ->
         searchParams = {}
     console.log JSON.stringify searchParams # for good measure D:
 
+    console.log 'searching for questions...'
     model.count(searchParams).read('sp').exec (err, count) ->
       if err?
          console.log err
