@@ -1,9 +1,11 @@
 express = require 'express'
 request = require 'request'
 mongoose = require 'mongoose'
+fs = require 'fs'
 app = express()
 app.use express.json()
 app.use express.urlencoded()
+db_url = process.env.DB || String fs.readFileSync __dirname + '/db.url'
 mongoose.connect process.env.DB
 
 port = process.env.PORT || 2020
