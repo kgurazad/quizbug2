@@ -6,6 +6,7 @@ app = express()
 app.use express.json()
 app.use express.urlencoded()
 db_url = process.env.DB || String fs.readFileSync __dirname + '/db.url'
+console.log db_url
 mongoose.connect process.env.DB
 
 port = process.env.PORT || 2020
